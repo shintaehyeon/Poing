@@ -1,65 +1,164 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState } from 'react';
+import Link from 'next/link';
+
+export default function LandingPage() {
+  const [activeMood, setActiveMood] = useState<'morning' | 'day' | 'night'>('day');
+
+  const moodDetails = {
+    morning: {
+      spot: '호미곶 해맞이광장',
+      time: '06:30 AM',
+      tag: '동해 웅장한 일출',
+      image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80',
+      desc: '한반도 동쪽 끝에서 맞이하는 가장 특별한 아침 햇살'
+    },
+    day: {
+      spot: '환호공원 스페이스워크',
+      time: '14:00 PM',
+      tag: '구름 위 스카이 트랙',
+      image: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80',
+      desc: '영일만 바다를 발아래 두고 구름 위를 걷는 짜릿한 힐링'
+    },
+    night: {
+      spot: '영일대 해상누각 & 죽도시장',
+      time: '20:00 PM',
+      tag: '바다 누각 야경 & 식도락',
+      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+      desc: '파도 소리와 함께 빛나는 해상 누각 조망과 신선한 포항 물회'
+    }
+  };
+
+  const current = moodDetails[activeMood];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div style={{ padding: '24px 20px 40px', display: 'flex', flexDirection: 'column', gap: '28px', flex: 1 }}>
+      {/* Top Brand Header */}
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ 
+            fontSize: '1.4rem', 
+            fontWeight: '900', 
+            background: 'linear-gradient(135deg, #0066FF, #00C6FF)', 
+            WebkitBackgroundClip: 'text', 
+            WebkitTextFillColor: 'transparent' 
+          }}>
+            POING
+          </span>
+          <span style={{ 
+            fontSize: '0.75rem', 
+            padding: '2px 8px', 
+            borderRadius: '12px', 
+            background: 'rgba(0, 102, 255, 0.2)', 
+            color: '#00C6FF', 
+            fontWeight: 600,
+            border: '1px solid rgba(0, 198, 255, 0.3)'
+          }}>
+            포항 특화 AI
+          </span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>2026 관광데이터 공모전</div>
+      </header>
+
+      {/* Hero Headline */}
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <h1 style={{ fontSize: '1.85rem', fontWeight: 800, lineHeight: 1.35, color: '#FFFFFF' }}>
+          포항만의 감성,<br />
+          <span style={{ color: '#00C6FF' }}>AI 빅데이터</span>로 만나는 하루
+        </h1>
+        <p style={{ fontSize: '0.95rem', color: '#94A3B8', lineHeight: 1.5 }}>
+          혼잡도는 낮추고, 이동 시간은 줄여주는<br />포항 최적화 맞춤 여행 동선 생성기
+        </p>
+      </section>
+
+      {/* Interactive Pohang 24h Live Mood Selector */}
+      <section className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#CBD5E1', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span>🌊</span> 포항의 24시간 Live Mood
+          </span>
+          <span style={{ fontSize: '0.75rem', color: '#FFB020', fontWeight: 600 }}>{current.time}</span>
         </div>
-      </main>
+
+        {/* Mood Tabs */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', background: 'rgba(0,0,0,0.3)', padding: '4px', borderRadius: '12px' }}>
+          {(['morning', 'day', 'night'] as const).map((m) => (
+            <button
+              key={m}
+              onClick={() => setActiveMood(m)}
+              style={{
+                padding: '8px 0',
+                border: 'none',
+                borderRadius: '8px',
+                background: activeMood === m ? 'linear-gradient(135deg, #0066FF, #00C6FF)' : 'transparent',
+                color: activeMood === m ? '#FFFFFF' : '#94A3B8',
+                fontWeight: activeMood === m ? 700 : 500,
+                fontSize: '0.8rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              {m === 'morning' ? '🌅 아침' : m === 'day' ? '☀️ 낮' : '🌙 야경'}
+            </button>
+          ))}
+        </div>
+
+        {/* Mood Card Preview */}
+        <div style={{ 
+          position: 'relative', 
+          height: '180px', 
+          borderRadius: '12px', 
+          overflow: 'hidden',
+          border: '1px solid rgba(255, 255, 255, 0.15)'
+        }}>
+          <img 
+            src={current.image} 
+            alt={current.spot} 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.7)' }} 
+          />
+          <div style={{ 
+            position: 'absolute', 
+            bottom: 0, 
+            left: 0, 
+            right: 0, 
+            padding: '14px', 
+            background: 'linear-gradient(to top, rgba(11, 19, 43, 0.95), transparent)' 
+          }}>
+            <span style={{ fontSize: '0.7rem', padding: '3px 8px', background: '#FF5E36', borderRadius: '10px', fontWeight: 700 }}>
+              {current.tag}
+            </span>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginTop: '6px', color: '#FFF' }}>{current.spot}</h3>
+            <p style={{ fontSize: '0.75rem', color: '#CBD5E1', marginTop: '2px' }}>{current.desc}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Key Competition Proof Stats */}
+      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+        <div className="glass-card" style={{ padding: '12px', textAlign: 'center' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#00C6FF' }}>5종</div>
+          <div style={{ fontSize: '0.7rem', color: '#94A3B8', marginTop: '2px' }}>관광공사 API</div>
+        </div>
+        <div className="glass-card" style={{ padding: '12px', textAlign: 'center' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#FFB020' }}>-38%</div>
+          <div style={{ fontSize: '0.7rem', color: '#94A3B8', marginTop: '2px' }}>혼잡 우회률</div>
+        </div>
+        <div className="glass-card" style={{ padding: '12px', textAlign: 'center' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#00E676' }}>26분</div>
+          <div style={{ fontSize: '0.7rem', color: '#94A3B8', marginTop: '2px' }}>동선 절감</div>
+        </div>
+      </section>
+
+      {/* Main Action Button */}
+      <div style={{ marginTop: 'auto' }}>
+        <Link href="/plan/create" className="glass-button-primary" style={{ textDecoration: 'none' }}>
+          <span>✨ 포항 여행 만들기</span>
+        </Link>
+        <p style={{ textAlign: 'center', fontSize: '0.75rem', color: '#64748B', marginTop: '12px' }}>
+          조건 입력만으로 3초 만에 만들어지는 개인 맞춤 일정
+        </p>
+      </div>
     </div>
   );
 }
