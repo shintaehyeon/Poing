@@ -1,41 +1,38 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
 :root {
-  /* Brand Color Palette */
-  --color-primary: #0066FF;
-  --color-primary-hover: #0052CC;
-  --color-primary-light: rgba(0, 102, 255, 0.15);
-  
-  --color-secondary: #FF5E36;
-  --color-secondary-light: rgba(255, 94, 54, 0.15);
-  
-  --color-accent-gold: #FFB020;
-  --color-accent-cyan: #00C6FF;
-  
-  /* Backgrounds & Glassmorphism */
-  --bg-dark: #0B132B;
-  --bg-card-dark: rgba(28, 37, 65, 0.75);
-  --bg-glass: rgba(255, 255, 255, 0.06);
-  --bg-glass-hover: rgba(255, 255, 255, 0.12);
-  --bg-glass-border: rgba(255, 255, 255, 0.15);
-  
+  /* 🌊 POING Bespoke Pohang Palette (No Generic Purple Tropes) */
+  --color-brand-ocean: #0066FF;        /* 깊은 포항 영일만 블루 */
+  --color-brand-cyan: #00D2FF;         /* 맑은 동해 수면 라이트 */
+  --color-brand-coral: #FF4D2D;        /* 호미곶 상생의 손 해돋이 코랄 */
+  --color-brand-gold: #FFB800;         /* 영일대 야경 앰버 골드 */
+
+  /* Surface & Background Hierarchy */
+  --bg-app-base: #060B19;              /* Deep Ocean Night Layer */
+  --bg-surface-1: rgba(15, 28, 63, 0.65); /* Clean Surface Layer */
+  --bg-surface-2: rgba(255, 255, 255, 0.05);
+  --bg-surface-hover: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-focus: rgba(0, 210, 255, 0.4);
+
   /* Status Colors */
-  --status-low: #00E676;     /* 여유 */
-  --status-normal: #FFD600;  /* 보통 */
-  --status-high: #FF1744;    /* 혼잡 */
-  
-  /* Typography & Layout */
-  --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-  --max-width: 480px; /* Mobile First Centered View Container */
-  --radius-sm: 8px;
+  --status-success: #00E676;
+  --status-warning: #FFD600;
+  --status-danger: #FF2A55;
+
+  /* Typography & Layout Rules */
+  --font-main: -apple-system, BlinkMacSystemFont, 'Pretendard', system-ui, Roboto, sans-serif;
+  --max-width: 440px;                  /* Precision Mobile Viewport */
+  --radius-sm: 10px;
   --radius-md: 16px;
-  --radius-lg: 24px;
+  --radius-lg: 20px;
   --radius-full: 9999px;
-  
-  /* Shadows & Glow */
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --glow-primary: 0 0 20px rgba(0, 102, 255, 0.4);
-  --glow-secondary: 0 0 20px rgba(255, 94, 54, 0.4);
+
+  /* Touch Target Ergonomics */
+  --min-touch-height: 52px;            /* Minimum Finger Touch Target Size */
+
+  /* Subtle Clean Shadows (No Heavy Blurs) */
+  --shadow-flat: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --glow-ocean: 0 4px 24px rgba(0, 102, 255, 0.35);
+  --glow-coral: 0 4px 24px rgba(255, 77, 45, 0.35);
 }
 
 * {
@@ -48,47 +45,51 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: #050A18;
-  color: #FFFFFF;
+  background-color: #03060E;
+  color: #F8FAFC;
   font-family: var(--font-main);
   overflow-x: hidden;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Centered Mobile Layout Wrapper */
+/* Mobile Frame Wrapper with Clean Precision Border */
 .mobile-container {
   width: 100%;
   max-width: var(--max-width);
   min-height: 100vh;
   margin: 0 auto;
-  background: linear-gradient(180deg, #0B132B 0%, #050A18 100%);
+  background: linear-gradient(180deg, #091226 0%, #040814 100%);
   position: relative;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.85);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Glass Card Component Utility */
+/* Clean Anti-Trope Surface Card */
 .glass-card {
-  background: var(--bg-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--bg-glass-border);
+  background: var(--bg-surface-1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 18px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 20px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  background: var(--bg-glass-hover);
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
+  background: var(--bg-surface-hover);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
+/* Ergonomic Primary Button with Finger-Friendly Height */
 .glass-button-primary {
   width: 100%;
-  padding: 16px 24px;
+  min-height: var(--min-touch-height);
+  padding: 14px 24px;
   border-radius: var(--radius-md);
   border: none;
   background: linear-gradient(135deg, #0066FF 0%, #00C6FF 100%);
@@ -96,8 +97,8 @@ html, body {
   font-weight: 700;
   font-size: 1.05rem;
   cursor: pointer;
-  box-shadow: var(--glow-primary);
-  transition: all 0.2s ease;
+  box-shadow: var(--glow-ocean);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,14 +108,14 @@ html, body {
 
 .glass-button-primary:active {
   transform: scale(0.98);
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 /* Interactive Step Animation for Q&A Wizard */
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(24px);
   }
   to {
     opacity: 1;
@@ -128,23 +129,23 @@ html, body {
 
 /* Pulse Animation for Live API Processing */
 @keyframes pulse-glow {
-  0% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.6); }
-  70% { box-shadow: 0 0 0 15px rgba(0, 102, 255, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.5); }
+  70% { box-shadow: 0 0 0 16px rgba(0, 102, 255, 0); }
   100% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0); }
 }
 
 .live-pulse {
-  animation: pulse-glow 2s infinite;
+  animation: pulse-glow 2.2s infinite;
 }
 
-/* Custom Scrollbar */
+/* Custom Minimal Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.18);
   border-radius: 10px;
 }
