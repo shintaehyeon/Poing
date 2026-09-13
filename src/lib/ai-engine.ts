@@ -1,4 +1,4 @@
-import { TravelCondition, DayItinerary, ItineraryItem, PohangPlace, POINGInsightReport } from '@/types/poing';
+import { TravelCondition, DayItinerary, ItineraryItem, POINGInsightReport } from '@/types/poing';
 import { POHANG_MOCK_PLACES } from './mockData';
 
 /**
