@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PageShell from '@/components/poing/PageShell';
 import PlaceThumb from '@/components/poing/PlaceThumb';
+import SunTimes from '@/components/poing/SunTimes';
 import { apiPills, createOptions, itineraryPlaces } from '@/lib/poing-content';
 
 type TripCondition = {
@@ -36,6 +37,8 @@ export default function CreatePlanPage() {
       active="create"
       aside={
         <>
+          <SunTimes />
+
           <section className="panel soft">
             <span className="field-title">오늘의 기본 흐름</span>
             <div className="route-list">

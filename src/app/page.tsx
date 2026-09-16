@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import LiveTime from '@/components/poing/LiveTime';
+import SunTimes from '@/components/poing/SunTimes';
 import { timeSlots } from '@/lib/poing-content';
 
 const searchItems = [
@@ -73,14 +74,7 @@ export default function LandingPage() {
             </div>
           </section>
 
-          <aside className="hero-mini-card" aria-label="오늘의 포항">
-            <div className="mini-photo" />
-            <div>
-              <span>오늘의 장면</span>
-              <strong>영일대에서 스페이스워크까지</strong>
-              <p>도착 시간에 맞춰 바다, 노을, 저녁 시장을 부드럽게 이어줍니다.</p>
-            </div>
-          </aside>
+          <SunTimes variant="hero" />
         </div>
 
         <div className="journey-filter" aria-label="여행 조건">

@@ -5,18 +5,38 @@ import { useRouter } from 'next/navigation';
 import PageShell from '@/components/poing/PageShell';
 import { apiPills, eventTrail, generationSteps, itineraryPlaces } from '@/lib/poing-content';
 
+type GeneratedTrip = {
+  generatedAt: string;
+  places: typeof itineraryPlaces;
+  summary: string;
+};
+
 export default function GeneratingPage() {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [generatedTrip, setGeneratedTrip] = useState<GeneratedTrip | null>(null);
 
-  const result = useMemo(
+  const fallbackResult = useMemo(
     () => ({
-      createdAt: new Date().toISOString(),
+      generatedAt: new Date().toISOString(),
       places: itineraryPlaces,
       summary: '바다에서 시작해 노을과 시장으로 마무리하는 포항 하루',
     }),
     [],
   );
+
+  useEffect(() => {
+    const condition = window.sessionStorage.getItem('poing_condition');
+
+    fetch('/api/trips/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: condition ?? '{}',
+    })
+      .then((response) => response.json())
+      .then((data: GeneratedTrip) => setGeneratedTrip(data))
+      .catch(() => setGeneratedTrip(fallbackResult));
+  }, [fallbackResult]);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -26,14 +46,25 @@ export default function GeneratingPage() {
         }
 
         window.clearInterval(timer);
-        window.sessionStorage.setItem('poing_result', JSON.stringify(result));
-        window.setTimeout(() => router.push('/plan/confirm'), 650);
         return current;
       });
     }, 620);
 
     return () => window.clearInterval(timer);
-  }, [result, router]);
+  }, []);
+
+  useEffect(() => {
+    if (activeIndex !== generationSteps.length - 1 || !generatedTrip) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      window.sessionStorage.setItem('poing_result', JSON.stringify(generatedTrip));
+      router.push('/plan/confirm');
+    }, 650);
+
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, generatedTrip, router]);
 
   return (
     <PageShell
