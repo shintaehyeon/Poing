@@ -66,8 +66,8 @@ export default function LandingPage() {
               하루가 시가 됩니다
             </h1>
             <p className="poem-copy">
-              여행은 멀리 가는 일이 아니라, 오늘의 마음을 조금 더 선명하게 만나는 일.
-              포항의 빛과 바람을 따라 걸으면 POING이 그 시간을 조용히 남깁니다.
+              여행자는 어디가 유명한지보다 지금 내 시간에 어디부터 가야 하는지 알고 싶습니다.
+              POING은 포항의 관광 데이터를 오늘의 하루로 번역합니다.
             </p>
             <div className="actions">
               <Link className="primary-btn" href="/plan/create">
@@ -119,6 +119,44 @@ export default function LandingPage() {
             <span>03</span>
             <strong>기록</strong>
             <p>방문한 장소와 후기가 나만의 포항 기록이 됩니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="service-edge-section" aria-label="POING 서비스 특장점">
+        <div className="edge-statement">
+          <p className="eyebrow">Why POING</p>
+          <h2>
+            장소를 추천하지 않고,
+            <br />
+            포항의 시간을 추천합니다.
+          </h2>
+          <p>
+            POING의 경쟁력은 관광 정보를 나열하는 것이 아니라, 공식 포항 데이터와 사용자의 도착 시간을
+            실제로 움직일 수 있는 하루로 번역하는 데 있습니다.
+          </p>
+        </div>
+
+        <div className="edge-grid">
+          <article>
+            <span>01</span>
+            <strong>시간 기반 설계</strong>
+            <p>일출, 오후 산책, 노을, 저녁 시장처럼 포항의 장면을 시간 순서로 엮습니다.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <strong>최소 입력</strong>
+            <p>사용자는 도착 시간과 취향만 고르고, POING은 코스와 이유를 조용히 계산합니다.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <strong>여행 중 수정</strong>
+            <p>혼잡하거나 시간이 부족하면 가까운 대체 장소와 남은 동선을 다시 맞춥니다.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <strong>기록 피드백</strong>
+            <p>방문 순서, 변경, 별점, 후기가 다음 포항 추천 품질로 돌아갑니다.</p>
           </article>
         </div>
       </section>

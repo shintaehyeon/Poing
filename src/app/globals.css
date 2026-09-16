@@ -1462,6 +1462,74 @@ meter::-webkit-meter-optimum-value {
   color: #6f7469;
 }
 
+.service-edge-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.95fr) minmax(360px, 1fr);
+  gap: clamp(24px, 5vw, 72px);
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 76px) 0;
+}
+
+.edge-statement {
+  display: grid;
+  align-content: start;
+}
+
+.edge-statement h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(42px, 5.8vw, 82px);
+  font-weight: 400;
+  line-height: 1.04;
+}
+
+.edge-statement p:not(.eyebrow) {
+  max-width: 620px;
+  margin: 24px 0 0;
+  color: #5f6159;
+  font-size: clamp(16px, 1.35vw, 18px);
+  line-height: 1.75;
+}
+
+.edge-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.edge-grid article {
+  display: grid;
+  gap: 12px;
+  min-height: 210px;
+  padding: clamp(20px, 2.4vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+.edge-grid span {
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.edge-grid strong {
+  color: var(--charcoal);
+  font-family: var(--serif);
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+.edge-grid p {
+  margin: 0;
+  color: #65695f;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
 .destination-section {
   padding: clamp(38px, 6vw, 80px) 0;
 }
@@ -1826,6 +1894,8 @@ meter::-webkit-meter-optimum-value {
   .destination-grid,
   .landing-page .time-preview,
   .landing-page .landing-steps,
+  .service-edge-section,
+  .edge-grid,
   .poem-section,
   .metric-grid,
   .visitor-board,
