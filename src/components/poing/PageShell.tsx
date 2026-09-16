@@ -30,9 +30,13 @@ export default function PageShell({
         </Link>
         <div>
           <p className="eyebrow">Start POING</p>
-          <h1>당신의 포항 여행이 시작됐어요</h1>
+          <h1>
+            바다는 길을 열고
+            <br />
+            하루는 기록이 됩니다
+          </h1>
           <p className="sidebar-copy">
-            로그인 없이도 지금 이 브라우저에서 여정을 만들고 이어갈 수 있어요.
+            오늘 포항에서 만난 빛과 바람을 POING이 조용히 모아둘게요.
           </p>
         </div>
         <nav className="step-nav" aria-label="POING 여정 단계">

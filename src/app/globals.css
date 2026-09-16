@@ -1183,3 +1183,694 @@ meter::-webkit-meter-optimum-value {
     grid-template-columns: 1fr;
   }
 }
+
+/* Editorial refresh */
+:root {
+  --paper: #f5f1ea;
+  --paper-soft: #fbfaf6;
+  --forest: #53663f;
+  --sand: #d7c3a5;
+  --gold: #c79656;
+  --charcoal: #171a17;
+  --serif: Georgia, "Times New Roman", "AppleMyungjo", Batang, serif;
+}
+
+.wordmark,
+.eyebrow,
+.live-chip span,
+.live-chip small,
+.window-bar span,
+.hero-flow,
+.step-nav span {
+  letter-spacing: 0;
+}
+
+.landing-page {
+  min-height: 100svh;
+  padding: clamp(18px, 4vw, 52px);
+  background: #b8b8b4;
+  color: var(--charcoal);
+}
+
+.editorial-hero {
+  position: relative;
+  min-height: min(780px, calc(100svh - 64px));
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    linear-gradient(90deg, rgba(9, 24, 36, 0.42), rgba(9, 24, 36, 0.02) 58%),
+    linear-gradient(180deg, rgba(7, 20, 32, 0.04), rgba(7, 20, 32, 0.38)),
+    url("/poing-hero.png") center / cover no-repeat;
+  color: white;
+  box-shadow: 0 34px 90px rgba(16, 20, 18, 0.26);
+}
+
+.editorial-nav {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  min-height: 70px;
+  margin: clamp(14px, 2vw, 24px);
+  padding: 0 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--charcoal);
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-left a,
+.nav-right a {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.nav-right {
+  justify-content: flex-end;
+}
+
+.editorial-nav .wordmark {
+  font-size: clamp(22px, 2.2vw, 34px);
+  color: var(--charcoal);
+}
+
+.editorial-nav .live-chip.compact {
+  border-color: rgba(23, 26, 23, 0.14);
+  background: #101510;
+  color: white;
+}
+
+.round-menu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #050505;
+  color: white;
+}
+
+.hero-marquee {
+  position: absolute;
+  z-index: 1;
+  top: 18%;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.84);
+  font-family: var(--serif);
+  font-size: clamp(92px, 19vw, 270px);
+  line-height: 0.78;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.editorial-hero-content {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(520px, 0.9fr) minmax(260px, 340px);
+  gap: clamp(22px, 4vw, 56px);
+  align-items: end;
+  min-height: calc(min(780px, calc(100svh - 64px)) - 118px);
+  padding: clamp(38px, 7vw, 86px);
+  padding-top: clamp(120px, 20vw, 220px);
+}
+
+.hero-statement {
+  max-width: 860px;
+}
+
+.hero-statement h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(44px, 5vw, 78px);
+  font-weight: 400;
+  line-height: 1.04;
+}
+
+.poem-copy {
+  max-width: 590px;
+  margin: 22px 0 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.8;
+}
+
+.hero-mini-card {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(18px);
+}
+
+.mini-photo {
+  min-height: 118px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(4, 23, 44, 0.22)),
+    url("/poing-hero.png") 46% 37% / 360% auto no-repeat;
+}
+
+.hero-mini-card span,
+.journey-filter span,
+.destination-card p,
+.memory-preview span {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.hero-mini-card strong {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.hero-mini-card p {
+  margin: 9px 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.journey-filter {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 1px;
+  width: min(1120px, calc(100% - 64px));
+  margin: -34px auto 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: rgba(23, 26, 23, 0.08);
+  box-shadow: 0 24px 60px rgba(20, 24, 20, 0.16);
+}
+
+.journey-filter div,
+.search-button {
+  min-height: 96px;
+  padding: 22px 26px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--charcoal);
+}
+
+.journey-filter span {
+  color: #74756f;
+}
+
+.journey-filter strong {
+  display: block;
+  margin-top: 9px;
+  font-size: 17px;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 112px;
+  background: #050505;
+  color: white;
+  font-weight: 900;
+}
+
+.landing-page .landing-brief,
+.destination-section,
+.landing-page .time-preview,
+.poem-section {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.landing-page .landing-brief {
+  padding: clamp(92px, 11vw, 140px) 0 clamp(42px, 6vw, 76px);
+  color: var(--charcoal);
+}
+
+.landing-page .landing-brief h2,
+.section-heading h2,
+.poem-section h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.landing-page .landing-brief h2 {
+  font-size: clamp(44px, 6vw, 82px);
+}
+
+.landing-page .landing-brief p:not(.eyebrow),
+.poem-section p {
+  color: #5f6159;
+}
+
+.landing-page .landing-steps article {
+  min-height: 210px;
+  border: 1px solid rgba(23, 26, 23, 0.1);
+  background: var(--paper-soft);
+  color: var(--charcoal);
+  box-shadow: 0 18px 40px rgba(23, 26, 23, 0.06);
+}
+
+.landing-page .landing-steps span,
+.landing-page .landing-steps p {
+  color: #6f7469;
+}
+
+.destination-section {
+  padding: clamp(38px, 6vw, 80px) 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(38px, 5vw, 72px);
+}
+
+.section-heading > a {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.destination-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.destination-card {
+  overflow: hidden;
+  border: 1px solid rgba(23, 26, 23, 0.1);
+  border-radius: 22px;
+  background: var(--paper-soft);
+  box-shadow: 0 20px 46px rgba(23, 26, 23, 0.08);
+}
+
+.destination-photo {
+  min-height: 210px;
+  padding: 16px;
+  color: white;
+}
+
+.destination-photo.sea {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(7, 21, 35, 0.42)),
+    url("/poing-hero.png") 47% 36% / 340% auto no-repeat;
+}
+
+.destination-photo.sunset {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(7, 21, 35, 0.44)),
+    url("/poing-hero.png") 31% 67% / 340% auto no-repeat;
+}
+
+.destination-photo.night {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(7, 21, 35, 0.62)),
+    url("/poing-hero.png") 70% 94% / 340% auto no-repeat;
+}
+
+.destination-photo span {
+  display: inline-flex;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--charcoal);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.destination-card > div:last-child {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+}
+
+.destination-card strong {
+  font-family: var(--serif);
+  font-size: 29px;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.destination-card p {
+  color: #686b62;
+}
+
+.destination-card a {
+  margin-top: 8px;
+  color: var(--charcoal);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.landing-page .time-preview {
+  padding: clamp(24px, 5vw, 72px) 0;
+}
+
+.landing-page .time-preview article {
+  min-height: 310px;
+  border-radius: 22px;
+  border-color: rgba(23, 26, 23, 0.12);
+}
+
+.poem-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 0.7fr);
+  gap: clamp(28px, 7vw, 96px);
+  align-items: center;
+  padding: clamp(58px, 8vw, 110px) 0 clamp(42px, 7vw, 90px);
+}
+
+.poem-section h2 {
+  margin: 0;
+  font-size: clamp(42px, 6vw, 88px);
+}
+
+.memory-preview {
+  display: grid;
+  gap: 18px;
+  min-height: 430px;
+  align-content: end;
+  padding: clamp(24px, 4vw, 42px);
+  border-radius: 28px;
+  color: white;
+  background:
+    linear-gradient(180deg, rgba(7, 20, 32, 0.1), rgba(7, 20, 32, 0.78)),
+    url("/poing-hero.png") 50% 82% / cover no-repeat;
+  box-shadow: 0 28px 70px rgba(23, 26, 23, 0.2);
+}
+
+.memory-preview strong {
+  font-family: var(--serif);
+  font-size: clamp(34px, 4vw, 58px);
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.service-page {
+  grid-template-columns: minmax(290px, 34vw) minmax(0, 1fr);
+  background: var(--paper);
+  color: var(--charcoal);
+}
+
+.service-sidebar {
+  background:
+    linear-gradient(180deg, rgba(4, 23, 44, 0.96), rgba(4, 23, 44, 0.86)),
+    url("/poing-hero.png") 44% 58% / 320% auto no-repeat;
+  border-right: 0;
+  color: white;
+}
+
+.service-sidebar h1 {
+  font-size: clamp(42px, 4.4vw, 74px);
+  line-height: 1.12;
+}
+
+.sidebar-copy {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 17px;
+}
+
+.step-nav a {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.step-nav a.active {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.service-stage {
+  padding: clamp(24px, 4vw, 58px);
+}
+
+.service-topbar > span {
+  color: #6a6c65;
+}
+
+.web-screen {
+  border-radius: 30px;
+  border-color: rgba(23, 26, 23, 0.1);
+  background: #fbfaf6;
+  box-shadow: 0 24px 70px rgba(23, 26, 23, 0.1);
+}
+
+.window-bar {
+  min-height: 62px;
+  padding: 0 28px;
+  border-bottom: 1px solid rgba(23, 26, 23, 0.08);
+  background: #fbfaf6;
+  color: var(--charcoal);
+}
+
+.screen-head {
+  padding: clamp(34px, 4vw, 56px) clamp(28px, 4vw, 56px) 0;
+}
+
+.screen-head h2 {
+  max-width: 920px;
+  font-size: clamp(42px, 5.5vw, 82px);
+}
+
+.screen-head p:not(.eyebrow) {
+  color: #62655e;
+}
+
+.workspace {
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.38fr);
+  padding: clamp(24px, 4vw, 56px);
+}
+
+.panel,
+.analysis-card,
+.place-row,
+.memory-card,
+.metric-grid div,
+.visitor-group,
+.record-list div {
+  border-radius: 22px;
+  border-color: rgba(23, 26, 23, 0.1);
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(23, 26, 23, 0.07);
+}
+
+.panel.soft {
+  background: #eef2e7;
+}
+
+.panel.dark {
+  background: #071d33;
+}
+
+.choice-grid button,
+.row-actions button,
+.side-actions button,
+.feedback-row button,
+.time-field,
+.note-field {
+  border-radius: 16px;
+}
+
+.choice-grid button.selected,
+.feedback-row button.selected {
+  border-color: var(--forest);
+  background: #edf3e8;
+  color: #334822;
+}
+
+.primary-btn,
+.primary-action {
+  background: #0e1511;
+}
+
+.web-screen .secondary-action {
+  border-color: rgba(23, 26, 23, 0.14);
+}
+
+.place-row {
+  grid-template-columns: minmax(150px, 0.22fr) minmax(0, 1fr) auto;
+  padding: 18px;
+}
+
+.place-row.compact {
+  grid-template-columns: 120px minmax(0, 1fr);
+}
+
+.place-thumb {
+  width: 100%;
+  min-width: 110px;
+  height: 118px;
+  border-radius: 18px;
+}
+
+.detail-hero,
+.memory-card,
+.route-map {
+  border-radius: 26px;
+}
+
+.route-map {
+  background:
+    linear-gradient(25deg, transparent 46%, rgba(255, 255, 255, 0.72) 47% 49%, transparent 50%),
+    linear-gradient(110deg, transparent 34%, rgba(255, 255, 255, 0.62) 35% 37%, transparent 38%),
+    radial-gradient(circle at 20% 28%, #a6b989, transparent 25%),
+    radial-gradient(circle at 80% 12%, #d8c390, transparent 28%),
+    radial-gradient(circle at 68% 78%, #97b7bf, transparent 28%),
+    #dfe7dc;
+}
+
+.alert {
+  border-radius: 22px;
+  background: #fff3e6;
+}
+
+@media (max-width: 1120px) {
+  .editorial-hero-content,
+  .poem-section,
+  .landing-page .landing-brief,
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-filter,
+  .destination-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .search-button {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .landing-page {
+    padding: 12px;
+  }
+
+  .editorial-hero {
+    min-height: 760px;
+    border-radius: 22px;
+  }
+
+  .editorial-nav {
+    grid-template-columns: 1fr auto;
+    min-height: auto;
+    padding: 12px;
+  }
+
+  .nav-left {
+    display: none;
+  }
+
+  .nav-right {
+    gap: 10px;
+  }
+
+  .editorial-nav .live-chip.compact {
+    display: none;
+  }
+
+  .hero-marquee {
+    top: 17%;
+    font-size: clamp(58px, 21vw, 116px);
+  }
+
+  .editorial-hero-content {
+    min-height: 650px;
+    padding: 118px 22px 30px;
+  }
+
+  .hero-statement h1 {
+    font-size: clamp(40px, 13vw, 58px);
+  }
+
+  .hero-mini-card {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-filter,
+  .destination-grid,
+  .landing-page .time-preview,
+  .landing-page .landing-steps,
+  .poem-section,
+  .metric-grid,
+  .visitor-board,
+  .memory-layout,
+  .replace-grid,
+  .record-grid,
+  .side-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-filter {
+    width: calc(100% - 24px);
+    margin-top: -22px;
+  }
+
+  .journey-filter div,
+  .search-button {
+    min-height: 78px;
+  }
+
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .service-stage,
+  .service-sidebar {
+    padding: 20px 14px;
+  }
+
+  .service-sidebar h1 {
+    font-size: 42px;
+  }
+
+  .web-screen {
+    border-radius: 22px;
+  }
+
+  .screen-head,
+  .workspace {
+    padding-inline: 20px;
+  }
+
+  .screen-head h2 {
+    font-size: 40px;
+  }
+
+  .place-row,
+  .place-row.compact {
+    grid-template-columns: 1fr;
+  }
+}

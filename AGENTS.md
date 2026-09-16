@@ -29,12 +29,12 @@
 1. **타입 안전성 (TypeScript Strict Mode)**
    - 백엔드와 프론트엔드 간 데이터 통신 시 `src/types/poing.ts`에 정의된 `PohangPlace`, `DayItinerary`, `ItineraryItem` DTO 규격을 엄격히 준수합니다.
 
-2. **디자인 시스템 토큰 사용 (`src/app/globals.css`)**
-   - 색상이나 스타일 적용 시 전역 CSS 변수를 우선 사용합니다:
-     - Primary Ocean Blue: `var(--color-primary)` (`#0066FF`)
-     - Sunset Coral: `var(--color-secondary)` (`#FF5E36`)
-     - Glassmorphism Card: `class="glass-card"`
-     - Button: `class="glass-button-primary"`
+2. **디자인 시스템 우선 사용 (`DESIGN.md` + `src/app/globals.css`)**
+   - UI/UX 수정 전 반드시 루트의 `DESIGN.md`를 먼저 읽고, 그 디자인 계약을 우선합니다.
+   - POING의 현재 방향은 포항 여행 매거진처럼 보이는 에디토리얼 웹 서비스입니다.
+   - 색상, 타이포, radius, shadow, 카드 패턴은 `DESIGN.md`와 `src/app/globals.css`의 토큰을 우선 사용합니다.
+   - 보라색 그라디언트, 추상 장식 blob, 과도한 glassmorphism, 공모전 심사용 문구를 사용자 UI에 넣지 않습니다.
+   - 시각 언어를 바꾸는 경우 `DESIGN.md`를 먼저 업데이트한 뒤 CSS와 컴포넌트를 맞춥니다.
 
 3. **한국관광공사 OpenAPI 사용 원칙 (공모전 FAQ 필수 충족)**
    - 데이터 동기화 이슈 방지 및 공모전 호출 로그 검증을 위해 **로컬 DB 저장/캐싱을 금지**하며, **Next.js 백엔드 API Route를 통한 실시간 Fetching 원칙**을 유지합니다.
