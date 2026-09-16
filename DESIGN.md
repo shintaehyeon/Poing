@@ -85,12 +85,14 @@ Buttons:
 - Primary buttons are black/charcoal or deep ink.
 - Secondary buttons are quiet outlined controls.
 - Rounded pills are allowed for high-level actions; compact utility controls should use `16px` radius.
+- Primary CTAs should share one rhythm: `56px` minimum height, pill radius, charcoal background, and no random blue overrides.
 
 Cards:
 
 - Cards should be editorial and spacious, with image-first layouts where possible.
 - Radius: `22px` for cards, `28px-30px` for hero/screen containers.
 - Shadows must be soft and low contrast.
+- Keep visual ratios stable: destination photos use a landscape ratio, place thumbnails use `4:3`, and map panels use a wide route ratio.
 
 Data chips:
 

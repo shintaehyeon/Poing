@@ -4,9 +4,9 @@ import SunTimes from '@/components/poing/SunTimes';
 import { timeSlots } from '@/lib/poing-content';
 
 const searchItems = [
-  { label: 'City or address', value: 'Pohang, Korea' },
-  { label: 'Arrival', value: '오늘 오후 2:30' },
-  { label: 'Travel mood', value: '바다 · 노을 · 시장' },
+  { label: '지역', value: '포항' },
+  { label: '도착', value: '오늘 오후 2:30' },
+  { label: '취향', value: '바다 · 노을 · 시장' },
 ];
 
 const featuredPlaces = [
@@ -33,9 +33,9 @@ export default function LandingPage() {
       <section className="editorial-hero">
         <nav className="editorial-nav" aria-label="POING">
           <div className="nav-left">
-            <a href="#journey">Destination</a>
-            <a href="#places">Route</a>
-            <a href="#memory">Memory</a>
+            <a href="#journey">여정</a>
+            <a href="#places">장소</a>
+            <a href="#memory">기록</a>
           </div>
           <Link className="wordmark" href="/">
             POING
@@ -85,7 +85,7 @@ export default function LandingPage() {
             </div>
           ))}
           <Link className="search-button" href="/plan/create" aria-label="포항 여행 만들기">
-            만들기
+            여정 만들기
           </Link>
         </div>
       </section>
@@ -122,9 +122,9 @@ export default function LandingPage() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">Recommended Route</p>
-            <h2>Recommended Pohang</h2>
+            <h2>포항 추천 코스</h2>
           </div>
-          <Link href="/plan/create">Start your journey</Link>
+          <Link href="/plan/create">내 여정 시작하기</Link>
         </div>
         <div className="destination-grid">
           {featuredPlaces.map((place) => (
@@ -135,7 +135,7 @@ export default function LandingPage() {
               <div>
                 <strong>{place.title}</strong>
                 <p>{place.meta}</p>
-                <Link href="/plan/confirm">Booking Now</Link>
+                <Link href="/plan/confirm">여정에 담기</Link>
               </div>
             </article>
           ))}
