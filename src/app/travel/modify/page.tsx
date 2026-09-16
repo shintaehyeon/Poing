@@ -4,20 +4,19 @@ import Link from 'next/link';
 import { useState } from 'react';
 import PageShell from '@/components/poing/PageShell';
 import PlaceThumb from '@/components/poing/PlaceThumb';
+import { officialPlaceById } from '@/lib/pohang-official';
 
 const alternatives = [
   {
-    id: 'hwanho',
+    ...officialPlaceById.hwanho,
     meta: '스페이스워크 주변, 차량 3분',
-    name: '환호공원',
     reason: '대기 시간을 줄이면서 노을 동선을 그대로 이어갈 수 있어요.',
     tone: 'sunset',
   },
   {
-    id: 'yeonam',
-    meta: '바다 전망 카페, 차량 8분',
-    name: '여남 해안 카페거리',
-    reason: '비가 오거나 사람이 많을 때 쉬어가기 좋은 대체 코스예요.',
+    ...officialPlaceById.yeongildae,
+    meta: '바다 야경 코스, 차량 12분',
+    reason: '바다 산책으로 대기 시간을 분산하고 저녁 시장 동선으로 이어가기 좋아요.',
     tone: 'sea',
   },
 ];
@@ -57,10 +56,11 @@ export default function ModifyTravelPage() {
             onClick={() => setSelectedId(place.id)}
             type="button"
           >
-            <PlaceThumb tone={place.tone} />
+            <PlaceThumb alt={place.imageAlt} src={place.imageUrl} tone={place.tone} />
             <span className="field-title">{place.meta}</span>
-            <h3>{place.name}</h3>
+            <h3>{place.shortTitle}</h3>
             <p>{place.reason}</p>
+            <span className="source-link">{place.sourceTag}</span>
           </button>
         ))}
       </section>

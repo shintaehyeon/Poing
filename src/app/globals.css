@@ -2621,3 +2621,107 @@ textarea.note-field,
 .side-actions .primary-action:hover {
   background: #24301f;
 }
+
+.place-thumb,
+.destination-photo,
+.detail-hero.photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.place-thumb img,
+.destination-photo img,
+.detail-hero.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.place-thumb img {
+  transform: scale(1.02);
+}
+
+.destination-photo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  isolation: isolate;
+}
+
+.destination-photo img,
+.detail-hero.photo img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.destination-photo::after,
+.detail-hero.photo::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(5, 28, 50, 0.08), rgba(5, 28, 50, 0.58)),
+    linear-gradient(90deg, rgba(5, 28, 50, 0.36), rgba(5, 28, 50, 0));
+  content: "";
+}
+
+.destination-card .place-description {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.58;
+}
+
+.card-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-link-row a,
+.source-link {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.card-link-row a:last-child,
+.source-link {
+  color: var(--muted);
+}
+
+.official-note {
+  max-width: 760px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.official-note a {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.detail-hero.photo {
+  background: var(--night);
+}
+
+.detail-hero.photo span {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 16px 38px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 760px) {
+  .card-link-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -136,10 +136,17 @@ export default function CreatePlanPage() {
       <section className="panel soft">
         <span className="field-title">도착 후 첫 장면</span>
         <div className="place-row compact">
-          <PlaceThumb tone="sea" />
+          <PlaceThumb
+            alt={itineraryPlaces[0].imageAlt}
+            src={itineraryPlaces[0].imageUrl}
+            tone={itineraryPlaces[0].image}
+          />
           <div>
             <strong>영일대</strong>
             <p>도착 시간에 맞춰 무리 없는 산책 코스로 시작합니다.</p>
+            <a className="source-link" href={itineraryPlaces[0].sourceUrl} rel="noreferrer" target="_blank">
+              {itineraryPlaces[0].sourceTag}
+            </a>
           </div>
         </div>
       </section>

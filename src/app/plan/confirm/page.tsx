@@ -25,7 +25,7 @@ export default function ConfirmPlanPage() {
       <section className="timeline">
         {itineraryPlaces.map((place) => (
           <article className="place-row" key={place.id}>
-            <PlaceThumb tone={place.image} />
+            <PlaceThumb alt={place.imageAlt} src={place.imageUrl} tone={place.image} />
             <div>
               <span>{place.time}</span>
               <h3>{place.name}</h3>
@@ -35,6 +35,9 @@ export default function ConfirmPlanPage() {
                 <span>{place.congestion}</span>
                 <span>주차 {place.parking}</span>
               </div>
+              <a className="source-link" href={place.sourceUrl} rel="noreferrer" target="_blank">
+                {place.sourceTag}
+              </a>
             </div>
             <div className="row-actions">
               <Link className="secondary-action" href="/insight">

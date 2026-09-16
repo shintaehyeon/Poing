@@ -1,7 +1,9 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import LiveTime from '@/components/poing/LiveTime';
 import SunTimes from '@/components/poing/SunTimes';
 import { timeSlots } from '@/lib/poing-content';
+import { officialPlaceById, POHANG_TOUR_HOME } from '@/lib/pohang-official';
 
 const searchItems = [
   { label: '지역', value: '포항' },
@@ -11,16 +13,19 @@ const searchItems = [
 
 const featuredPlaces = [
   {
+    ...officialPlaceById.yeongildae,
     title: '영일대 바다 산책',
     meta: '15:00 · 바다 · 가벼운 시작',
     tone: 'sea',
   },
   {
+    ...officialPlaceById.spacewalk,
     title: '스페이스워크 노을',
     meta: '19:30 · 전망 · 야경',
     tone: 'sunset',
   },
   {
+    ...officialPlaceById.jukdo,
     title: '죽도시장 저녁',
     meta: '21:00 · 시장 · 기록',
     tone: 'night',
@@ -130,16 +135,36 @@ export default function LandingPage() {
           {featuredPlaces.map((place) => (
             <article className="destination-card" key={place.title}>
               <div className={`destination-photo ${place.tone}`}>
+                <Image
+                  alt={place.imageAlt}
+                  fill
+                  sizes="(max-width: 760px) 100vw, (max-width: 1200px) 33vw, 390px"
+                  src={place.imageUrl}
+                  unoptimized
+                />
                 <span>POING</span>
               </div>
               <div>
                 <strong>{place.title}</strong>
                 <p>{place.meta}</p>
-                <Link href="/plan/confirm">여정에 담기</Link>
+                <p className="place-description">{place.description}</p>
+                <div className="card-link-row">
+                  <Link href="/plan/confirm">여정에 담기</Link>
+                  <a href={place.sourceUrl} rel="noreferrer" target="_blank">
+                    공식 정보
+                  </a>
+                </div>
               </div>
             </article>
           ))}
         </div>
+        <p className="official-note">
+          장소 사진과 기본 콘텐츠는{' '}
+          <a href={POHANG_TOUR_HOME} rel="noreferrer" target="_blank">
+            포항시 퐝퐝여행
+          </a>
+          의 공개 관광 정보를 참고해 POING 문장으로 재구성했습니다.
+        </p>
       </section>
 
       <section className="time-preview" aria-label="포항 시간대별 여정">

@@ -54,11 +54,14 @@ export default function ActiveTravelPage() {
       <section className="panel">
         <span className="field-title">현재 장소</span>
         <div className="place-row compact">
-          <PlaceThumb tone={currentPlace.image} />
+          <PlaceThumb alt={currentPlace.imageAlt} src={currentPlace.imageUrl} tone={currentPlace.image} />
           <div>
             <span>{currentPlace.time}</span>
             <h3>{currentPlace.name}</h3>
             <p>{currentPlace.address}</p>
+            <a className="source-link" href={currentPlace.sourceUrl} rel="noreferrer" target="_blank">
+              공식 관광 정보
+            </a>
           </div>
         </div>
         <div className="side-actions">

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import PageShell from '@/components/poing/PageShell';
 import { apiPills, itineraryPlaces, visitorGroups } from '@/lib/poing-content';
 
@@ -34,7 +35,14 @@ export default function InsightPage() {
       eyebrow="Recommendation reason"
       title={`${place.name}가 첫 장소인 이유`}
     >
-      <section className="detail-hero">
+      <section className="detail-hero photo">
+        <Image
+          alt={place.imageAlt}
+          fill
+          sizes="(max-width: 1200px) 100vw, 820px"
+          src={place.imageUrl}
+          unoptimized
+        />
         <span>{place.name}</span>
       </section>
 
@@ -65,6 +73,9 @@ export default function InsightPage() {
           <span>연관 코스 높음</span>
           <span>{place.next}</span>
         </div>
+        <a className="source-link" href={place.sourceUrl} rel="noreferrer" target="_blank">
+          {place.sourceLabel}
+        </a>
       </section>
 
       <section className="visitor-board">
