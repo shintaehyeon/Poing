@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PageShell from '@/components/poing/PageShell';
-import { apiPills, eventTrail, generationSteps, itineraryPlaces } from '@/lib/poing-content';
+import { apiPills, eventTrail, generationSteps, itineraryPlaces, recipeSource } from '@/lib/poing-content';
 
 type GeneratedTrip = {
   generatedAt: string;
@@ -115,10 +115,14 @@ export default function GeneratingPage() {
 
       <section className="panel">
         <span className="field-title">생성 방향</span>
-        <h3>도착 후 바다, 노을 시간의 스페이스워크, 저녁 시장으로 이어집니다.</h3>
+        <h3>공식 포항 레시피를 참고해 바다, 노을, 시장의 시간을 이어갑니다.</h3>
         <p>
-          입력은 적게 받고 추천 근거는 내부에서 계산합니다. 사용자는 일정이 나온 뒤 필요한 장소만 바꾸면 됩니다.
+          공식 레시피의 동행/목적 조건을 POING의 도착 시간, 일출·일몰, 혼잡 예측 흐름과 다시 맞춥니다.
+          사용자는 일정이 나온 뒤 필요한 장소만 바꾸면 됩니다.
         </p>
+        <a className="source-link" href={recipeSource.url} rel="noreferrer" target="_blank">
+          {recipeSource.label}
+        </a>
       </section>
     </PageShell>
   );

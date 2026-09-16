@@ -5,13 +5,21 @@ import { useRouter } from 'next/navigation';
 import PageShell from '@/components/poing/PageShell';
 import PlaceThumb from '@/components/poing/PlaceThumb';
 import SunTimes from '@/components/poing/SunTimes';
-import { apiPills, createOptions, itineraryPlaces } from '@/lib/poing-content';
+import {
+  apiPills,
+  createOptions,
+  findRecipePreset,
+  itineraryPlaces,
+  recipePresets,
+  recipeSource,
+} from '@/lib/poing-content';
 
 type TripCondition = {
   duration: string;
   arrivalTime: string;
   transport: string;
   companion: string;
+  purpose: string;
 };
 
 export default function CreatePlanPage() {
@@ -21,7 +29,10 @@ export default function CreatePlanPage() {
     arrivalTime: '14:30',
     transport: createOptions.transport[0],
     companion: createOptions.companion[1],
+    purpose: createOptions.purpose[1],
   });
+
+  const matchedRecipe = findRecipePreset(condition.companion, condition.purpose);
 
   const updateCondition = (key: keyof TripCondition, value: string) => {
     setCondition((current) => ({ ...current, [key]: value }));
@@ -53,16 +64,19 @@ export default function CreatePlanPage() {
 
           <section className="panel dark">
             <h3>POING이 참고할 데이터</h3>
-            <p>사용자가 입력을 많이 하지 않아도 장소, 사진, 이동 시간, 혼잡 흐름을 함께 봅니다.</p>
+            <p>공식 포항 레시피의 취향 축에 장소, 사진, 이동 시간, 혼잡 흐름을 함께 봅니다.</p>
             <div className="api-pills">
               {apiPills.map((label) => (
                 <span key={label}>{label}</span>
               ))}
             </div>
+            <a className="dark-source-link" href={recipeSource.url} rel="noreferrer" target="_blank">
+              {recipeSource.label}
+            </a>
           </section>
         </>
       }
-      description="기간, 도착 시간, 이동수단, 동행만 선택하면 POING이 포항의 시간 흐름에 맞춰 일정을 만듭니다."
+      description="기간, 도착 시간, 이동수단, 동행, 여행 목적만 선택하면 POING이 포항 레시피와 시간 흐름을 함께 맞춥니다."
       eyebrow="Trip setup"
       title="언제 포항에 도착하세요?"
     >
@@ -114,7 +128,7 @@ export default function CreatePlanPage() {
 
         <div>
           <p className="field-title">동행</p>
-          <div className="choice-grid two">
+          <div className="choice-grid five">
             {createOptions.companion.map((option) => (
               <button
                 className={condition.companion === option ? 'selected' : ''}
@@ -127,6 +141,33 @@ export default function CreatePlanPage() {
             ))}
           </div>
         </div>
+
+        <div>
+          <p className="field-title">여행 목적</p>
+          <div className="choice-grid five">
+            {createOptions.purpose.map((option) => (
+              <button
+                className={condition.purpose === option ? 'selected' : ''}
+                key={option}
+                onClick={() => updateCondition('purpose', option)}
+                type="button"
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <section className="recipe-match">
+          <span className="field-title">포항 레시피 매칭</span>
+          <strong>{matchedRecipe.title}</strong>
+          <p>{matchedRecipe.copy}</p>
+          <div className="mini-list">
+            {matchedRecipe.route.map((place) => (
+              <span key={place}>{place}</span>
+            ))}
+          </div>
+        </section>
 
         <button className="primary-action" onClick={startGeneration} type="button">
           내 포항 여행 만들기
@@ -149,6 +190,22 @@ export default function CreatePlanPage() {
             </a>
           </div>
         </div>
+      </section>
+
+      <section className="panel">
+        <span className="field-title">공식 레시피에서 가져온 힌트</span>
+        <div className="recipe-card-grid">
+          {recipePresets.map((recipe) => (
+            <article key={recipe.id}>
+              <span>{recipe.from}</span>
+              <strong>{recipe.title}</strong>
+              <p>{recipe.copy}</p>
+            </article>
+          ))}
+        </div>
+        <a className="source-link" href={recipeSource.url} rel="noreferrer" target="_blank">
+          {recipeSource.label} 참고
+        </a>
       </section>
     </PageShell>
   );

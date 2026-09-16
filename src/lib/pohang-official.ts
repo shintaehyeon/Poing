@@ -15,6 +15,7 @@ export type OfficialPohangPlace = {
 const POHANG_TOUR_BASE = 'https://www.pohang.go.kr/phtour';
 
 export const POHANG_TOUR_HOME = `${POHANG_TOUR_BASE}/index.do`;
+export const POHANG_RECIPE_URL = `${POHANG_TOUR_BASE}/wmap/smartTour/index.do?menu_idx=17`;
 
 export const officialPohangPlaces: OfficialPohangPlace[] = [
   {
