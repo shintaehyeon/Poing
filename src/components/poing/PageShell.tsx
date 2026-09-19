@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import LiveTime from './LiveTime';
+import AuthButton from './AuthButton';
 import { tripSteps } from '@/lib/poing-content';
 
 type PageShellProps = {
@@ -10,6 +11,7 @@ type PageShellProps = {
   description: string;
   children: ReactNode;
   aside?: ReactNode;
+  variant?: 'default' | 'planner';
 };
 
 export default function PageShell({
@@ -19,11 +21,12 @@ export default function PageShell({
   description,
   children,
   aside,
+  variant = 'default',
 }: PageShellProps) {
   const activeIndex = tripSteps.findIndex((step) => step.key === active);
 
   return (
-    <main className="service-page">
+    <main className={`service-page ${variant === 'planner' ? 'planner-page' : ''}`}>
       <aside className="service-sidebar">
         <Link className="wordmark dark" href="/">
           POING
@@ -57,7 +60,10 @@ export default function PageShell({
       <section className="service-stage">
         <header className="service-topbar">
           <span>{activeIndex + 1} / {tripSteps.length}</span>
-          <LiveTime compact />
+          <div className="topbar-actions">
+            <AuthButton />
+            <LiveTime compact />
+          </div>
         </header>
         <article className="web-screen">
           <div className="window-bar">

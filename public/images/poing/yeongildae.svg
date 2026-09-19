@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="영일대 바다와 야경을 표현한 POING 자체 제작 비주얼">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#1c3c60"/><stop offset="0.55" stop-color="#7fb1c6"/><stop offset="1" stop-color="#f0bb74"/></linearGradient>
+    <linearGradient id="sea" x1="0" x2="1"><stop offset="0" stop-color="#17405e"/><stop offset="0.52" stop-color="#4e92a7"/><stop offset="1" stop-color="#d4a061"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <path d="M0 412 C220 382 370 420 560 398 C780 372 945 407 1200 382 L1200 800 L0 800 Z" fill="url(#sea)"/>
+  <path d="M0 548 C240 520 405 556 610 532 C830 506 995 540 1200 520" fill="none" stroke="#fff7e7" stroke-opacity="0.35" stroke-width="7"/>
+  <path d="M640 342 L668 342 L668 596 L640 596 Z M710 327 L738 327 L738 596 L710 596 Z M780 318 L808 318 L808 596 L780 596 Z M850 335 L878 335 L878 596 L850 596 Z" fill="#f2eee2"/>
+  <path d="M608 356 C700 315 815 315 922 352 L903 386 C806 354 710 354 626 387 Z" fill="#f5f0e5"/>
+  <path d="M590 592 L930 592 L930 625 L590 625 Z" fill="#142e46"/>
+  <path d="M0 486 C190 470 360 485 510 458 C635 436 725 447 844 430 C970 411 1070 415 1200 402 L1200 448 C1045 472 910 476 780 492 C615 512 465 530 305 523 C205 520 105 509 0 522 Z" fill="#102943" opacity="0.34"/>
+  <path d="M94 430 H118 V565 H94 Z M152 395 H181 V565 H152 Z M210 420 H237 V565 H210 Z M272 374 H304 V565 H272 Z M334 405 H363 V565 H334 Z" fill="#16324b" opacity="0.88"/>
+  <g fill="#ffe2a0" opacity="0.8"><circle cx="106" cy="456" r="4"/><circle cx="167" cy="428" r="4"/><circle cx="287" cy="407" r="4"/><circle cx="348" cy="437" r="4"/></g>
+</svg>

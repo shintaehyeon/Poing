@@ -4,9 +4,12 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'www.pohang.go.kr',
-        pathname: '/phtour/**',
-        protocol: 'https',
+        hostname: "upload.wikimedia.org",
+        protocol: "https",
+      },
+      {
+        hostname: "tong.visitkorea.or.kr",
+        protocol: "https",
       },
     ],
   },

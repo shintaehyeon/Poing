@@ -1,19 +1,31 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageShell from '@/components/poing/PageShell';
 import PlaceThumb from '@/components/poing/PlaceThumb';
 import RouteMap from '@/components/poing/RouteMap';
-import { eventTrail, itineraryPlaces } from '@/lib/poing-content';
+import { eventTrail } from '@/lib/poing-content';
+import { persistTripUpdate, useTrip } from '@/lib/use-trip';
 
 export default function ActiveTravelPage() {
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const currentPlace = itineraryPlaces[currentIndex];
-  const isLastPlace = currentIndex === itineraryPlaces.length - 1;
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const { trip, places } = useTrip();
+  useEffect(() => {
+    const saved = Number(window.sessionStorage.getItem('poing_current_index'));
+    const timer = window.setTimeout(() => {
+      if (Number.isInteger(saved) && saved >= 0) setCurrentIndex(Math.min(saved, places.length - 1));
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [places.length]);
+  const currentPlace = places[Math.min(currentIndex, places.length - 1)];
+  const isLastPlace = currentIndex === places.length - 1;
 
   const moveNext = () => {
-    setCurrentIndex((index) => Math.min(index + 1, itineraryPlaces.length - 1));
+    const next = Math.min(currentIndex + 1, places.length - 1);
+    setCurrentIndex(next);
+    window.sessionStorage.setItem('poing_current_index', String(next));
+    void persistTripUpdate(trip, { status: 'active', visited_places: places.slice(0, next).map((place) => place.name) });
   };
 
   return (
@@ -24,7 +36,7 @@ export default function ActiveTravelPage() {
           <section className="panel soft">
             <span className="field-title">현재 진행</span>
             <ol className="run-list">
-              {itineraryPlaces.map((place, index) => (
+              {places.map((place, index) => (
                 <li
                   className={index < currentIndex ? 'visited' : index === currentIndex ? 'now' : ''}
                   key={place.id}
@@ -47,7 +59,7 @@ export default function ActiveTravelPage() {
       }
       description="여행 중에는 지도와 현재 진행만 크게 보여줍니다. 필요한 순간에만 길찾기, 다음 장소, 일정 변경을 누르면 됩니다."
       eyebrow="Live route"
-      title="지금은 스페이스워크로 가는 중이에요"
+      title={`지금은 ${currentPlace.name}에서 여행하는 중`}
     >
       <RouteMap large />
 
@@ -59,13 +71,25 @@ export default function ActiveTravelPage() {
             <span>{currentPlace.time}</span>
             <h3>{currentPlace.name}</h3>
             <p>{currentPlace.address}</p>
+            {trip?.apiConnections?.routeSegments?.[currentIndex] && <p>
+              다음 장소 이동: {trip.apiConnections.routeSegments[currentIndex].connected
+                ? `${(trip.apiConnections.routeSegments[currentIndex].distanceMeters ?? 0) / 1000}km · ${Math.ceil((trip.apiConnections.routeSegments[currentIndex].durationSeconds ?? 0) / 60)}분 · ${trip.apiConnections.routeSegments[currentIndex].busLines?.join(', ') || trip.apiConnections.routeSegments[currentIndex].source}`
+                : trip.apiConnections.routeSegments[currentIndex].message}
+            </p>}
             <a className="source-link" href={currentPlace.sourceUrl} rel="noreferrer" target="_blank">
               공식 관광 정보
             </a>
           </div>
         </div>
         <div className="side-actions">
-          <button type="button">길찾기</button>
+          <a
+            className="secondary-action"
+            href={trip?.apiConnections?.routeSegments?.[currentIndex]?.landingUrl || `https://map.kakao.com/link/search/${encodeURIComponent(currentPlace.name + ' 포항')}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            길찾기
+          </a>
           {isLastPlace ? (
             <Link className="primary-action" href="/travel/finish">
               여행 종료하기

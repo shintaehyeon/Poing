@@ -1,14 +1,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import BestPohang from '@/components/poing/BestPohang';
 import LiveTime from '@/components/poing/LiveTime';
+import RegionalFlow from '@/components/poing/RegionalFlow';
 import SunTimes from '@/components/poing/SunTimes';
 import { timeSlots } from '@/lib/poing-content';
 import { officialPlaceById, POHANG_TOUR_HOME } from '@/lib/pohang-official';
+import { getPohangTourApiData } from '@/lib/server/kto-tour';
+
+export const dynamic = 'force-dynamic';
 
 const searchItems = [
   { label: '지역', value: '포항' },
-  { label: '도착', value: '오늘 오후 2:30' },
-  { label: '취향', value: '바다 · 노을 · 시장' },
+  { label: '도착', value: '시간 선택' },
+  { label: '취향', value: '나에게 맞게 선택' },
 ];
 
 const featuredPlaces = [
@@ -32,15 +37,30 @@ const featuredPlaces = [
   },
 ];
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const tour = await getPohangTourApiData();
+  const liveFeatured = featuredPlaces.map((fallback, index) => {
+    const term = ['영일대', '스페이스워크', '죽도'][index];
+    const place = tour.connected ? tour.places.find((item) => item.title.includes(term)) : undefined;
+    return place ? {
+      ...fallback,
+      title: place.title,
+      description: place.overview || fallback.description,
+      imageUrl: place.imageUrl || fallback.imageUrl,
+      imageAlt: `${place.title} 사진`,
+      sourceUrl: `/places/${place.contentId}`,
+      id: place.contentId,
+    } : { ...fallback, id: fallback.id };
+  });
   return (
     <main className="landing-page">
       <section className="editorial-hero">
         <nav className="editorial-nav" aria-label="POING">
           <div className="nav-left">
             <a href="#journey">여정</a>
+            <a href="#regions">권역</a>
+            <a href="#best-pohang">BEST</a>
             <a href="#places">장소</a>
-            <a href="#memory">기록</a>
           </div>
           <Link className="wordmark" href="/">
             POING
@@ -59,22 +79,26 @@ export default function LandingPage() {
 
         <div className="editorial-hero-content">
           <section className="hero-statement">
-            <p className="eyebrow">Pohang travel companion</p>
+            <p className="eyebrow">POHANG + ing</p>
             <h1>
-              바다가 여는 길,
+              포항에서 지금,
               <br />
-              하루가 시가 됩니다
+              여행이 이어지는 중
             </h1>
             <p className="poem-copy">
-              여행자는 어디가 유명한지보다 지금 내 시간에 어디부터 가야 하는지 알고 싶습니다.
-              POING은 포항의 관광 데이터를 오늘의 하루로 번역합니다.
+              POING은 포항에서 걷는 중, 먹는 중, 바라보는 중인 순간을 따라갑니다.
+              조건은 짧게 받고, 일정과 길찾기와 기록은 하나의 흐름으로 이어줍니다.
             </p>
+            <div className="brand-origin" aria-label="POING 이름 설명">
+              <span>POING = POHANG + ing</span>
+              <p>포항에 있는 지금을 계획하고, 진행하고, 기록하는 포항 전용 여행 웹 서비스.</p>
+            </div>
             <div className="actions">
               <Link className="primary-btn" href="/plan/create">
                 내 여정 시작하기
               </Link>
               <a className="ghost-btn" href="#journey">
-                포항의 하루 보기
+                포항 흐름 보기
               </a>
             </div>
           </section>
@@ -98,10 +122,10 @@ export default function LandingPage() {
       <section className="landing-brief" id="journey">
         <div>
           <p className="eyebrow">POING Journey</p>
-          <h2>포항의 하루를 하나의 여정으로</h2>
+          <h2>포항에서 진행 중인 여행을 하나의 여정으로</h2>
           <p>
             POING은 많은 선택지를 밀어넣지 않습니다. 몇 가지 조건만 보고, 포항의 시간과 동선을
-            사용자가 바로 움직일 수 있는 하루로 엮습니다.
+            사용자가 바로 움직일 수 있는 현재진행형 여정으로 엮습니다.
           </p>
         </div>
         <div className="landing-steps">
@@ -161,6 +185,10 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <RegionalFlow />
+
+      <BestPohang places={tour.connected ? tour.places : []} />
+
       <section className="destination-section" id="places" aria-label="추천 포항 장소">
         <div className="section-heading">
           <div>
@@ -170,7 +198,7 @@ export default function LandingPage() {
           <Link href="/plan/create">내 여정 시작하기</Link>
         </div>
         <div className="destination-grid">
-          {featuredPlaces.map((place) => (
+          {liveFeatured.map((place) => (
             <article className="destination-card" key={place.title}>
               <div className={`destination-photo ${place.tone}`}>
                 <Image
@@ -186,22 +214,23 @@ export default function LandingPage() {
                 <strong>{place.title}</strong>
                 <p>{place.meta}</p>
                 <p className="place-description">{place.description}</p>
+                {'imageCredit' in place && place.imageCredit && <small>{String(place.imageCredit)}</small>}
                 <div className="card-link-row">
-                  <Link href="/plan/confirm">여정에 담기</Link>
-                  <a href={place.sourceUrl} rel="noreferrer" target="_blank">
-                    공식 정보
-                  </a>
+                  <Link href="/plan/create">여정 만들기</Link>
+                  {tour.connected && place.id !== officialPlaceById.yeongildae.id && place.id !== officialPlaceById.spacewalk.id && place.id !== officialPlaceById.jukdo.id
+                    ? <Link href={place.sourceUrl}>장소 정보</Link>
+                    : <a href={place.sourceUrl} rel="noreferrer" target="_blank">출처 보기</a>}
                 </div>
               </div>
             </article>
           ))}
         </div>
         <p className="official-note">
-          장소 사진과 기본 콘텐츠는{' '}
+          장소 기본 정보는{' '}
           <a href={POHANG_TOUR_HOME} rel="noreferrer" target="_blank">
-            포항시 퐝퐝여행
+            공식 관광정보
           </a>
-          의 공개 관광 정보를 참고해 POING 문장으로 재구성했습니다.
+          와 한국관광공사 OpenAPI를 활용합니다. 각 사진의 재사용 조건은 원 출처에서 별도로 확인해야 합니다.
         </p>
       </section>
 

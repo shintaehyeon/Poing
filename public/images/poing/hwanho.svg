@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="환호공원과 산책길을 표현한 POING 자체 제작 비주얼">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#d6e2d4"/><stop offset="0.55" stop-color="#99bfae"/><stop offset="1" stop-color="#335840"/></linearGradient>
+    <linearGradient id="grass" x1="0" x2="1"><stop offset="0" stop-color="#486b43"/><stop offset="1" stop-color="#9bb56e"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <path d="M0 505 C220 405 410 500 630 420 C850 340 1010 415 1200 330 L1200 800 L0 800 Z" fill="url(#grass)"/>
+  <path d="M0 690 C260 630 440 655 600 592 C800 512 980 518 1200 440 L1200 800 L0 800 Z" fill="#203d2d" opacity="0.38"/>
+  <path d="M160 800 C305 642 456 615 612 608 C790 600 945 525 1100 382" fill="none" stroke="#efe6cf" stroke-width="60" stroke-linecap="round"/>
+  <path d="M160 800 C305 642 456 615 612 608 C790 600 945 525 1100 382" fill="none" stroke="#aa9778" stroke-width="6" stroke-linecap="round" stroke-dasharray="18 18"/>
+  <g fill="#24402f">
+    <circle cx="176" cy="435" r="78"/><rect x="164" y="430" width="24" height="220"/>
+    <circle cx="335" cy="360" r="96"/><rect x="320" y="360" width="28" height="270"/>
+    <circle cx="1010" cy="300" r="110"/><rect x="994" y="300" width="32" height="330"/>
+  </g>
+  <g fill="#f1b7c5" opacity="0.78"><circle cx="264" cy="514" r="16"/><circle cx="746" cy="520" r="18"/><circle cx="875" cy="465" r="15"/></g>
+</svg>

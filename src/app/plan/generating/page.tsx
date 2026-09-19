@@ -3,13 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PageShell from '@/components/poing/PageShell';
-import { apiPills, eventTrail, generationSteps, itineraryPlaces, recipeSource } from '@/lib/poing-content';
-
-type GeneratedTrip = {
-  generatedAt: string;
-  places: typeof itineraryPlaces;
-  summary: string;
-};
+import { apiPills, eventTrail, generationSteps, itineraryPlaces } from '@/lib/poing-content';
+import type { GeneratedTrip } from '@/lib/use-trip';
 
 export default function GeneratingPage() {
   const router = useRouter();
@@ -82,12 +77,22 @@ export default function GeneratingPage() {
           </section>
 
           <section className="panel soft">
-            <span className="field-title">기록될 행동</span>
-            <div className="mini-list">
-              {eventTrail.slice(0, 3).map((event) => (
-                <span key={event.key}>{event.label}</span>
-              ))}
-            </div>
+            <span className="field-title">실시간 연결 결과</span>
+            {generatedTrip ? (
+              <div className="integration-checks">
+                <span className={generatedTrip.apiConnections?.tour?.connected ? 'ok' : ''}>관광지·사진</span>
+                <span className={generatedTrip.apiConnections?.related?.connected ? 'ok' : ''}>연관 관광지</span>
+                <span className={generatedTrip.apiConnections?.congestion?.connected ? 'ok' : ''}>혼잡 예측</span>
+                <span className={generatedTrip.apiConnections?.visitors?.connected ? 'ok' : ''}>방문자 수</span>
+                <span className={generatedTrip.apiConnections?.route?.connected ? 'ok' : ''}>길찾기</span>
+                <span className={generatedTrip.apiConnections?.aiSummary?.connected ? 'ok' : ''}>AI 문장</span>
+                <span className={generatedTrip.apiConnections?.persistence?.connected ? 'ok' : ''}>여행 저장</span>
+              </div>
+            ) : (
+              <div className="mini-list">
+                {eventTrail.slice(0, 3).map((event) => <span key={event.key}>{event.label}</span>)}
+              </div>
+            )}
           </section>
         </>
       }
@@ -115,14 +120,11 @@ export default function GeneratingPage() {
 
       <section className="panel">
         <span className="field-title">생성 방향</span>
-        <h3>공식 포항 레시피를 참고해 바다, 노을, 시장의 시간을 이어갑니다.</h3>
+        <h3>후기에서 반복되는 만족 포인트를 포항의 시간 순서로 다시 엮습니다.</h3>
         <p>
-          공식 레시피의 동행/목적 조건을 POING의 도착 시간, 일출·일몰, 혼잡 예측 흐름과 다시 맞춥니다.
-          사용자는 일정이 나온 뒤 필요한 장소만 바꾸면 됩니다.
+          POING은 동행, 목적, 도착 시간, 일출·일몰, 혼잡 예측 흐름을 한 번에 맞춰 바로 움직일 수 있는
+          하루 코스로 정리합니다.
         </p>
-        <a className="source-link" href={recipeSource.url} rel="noreferrer" target="_blank">
-          {recipeSource.label}
-        </a>
       </section>
     </PageShell>
   );

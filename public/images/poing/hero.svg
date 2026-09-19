@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="포항 바다 일출을 표현한 POING 자체 제작 비주얼">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#274d68"/>
+      <stop offset="0.48" stop-color="#c7d5d1"/>
+      <stop offset="0.78" stop-color="#f5b96e"/>
+      <stop offset="1" stop-color="#19354d"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#17344f"/>
+      <stop offset="0.48" stop-color="#7aa0a9"/>
+      <stop offset="1" stop-color="#e2ad67"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="78%" cy="34%" r="26%">
+      <stop offset="0" stop-color="#fff8cf"/>
+      <stop offset="0.25" stop-color="#ffd98d"/>
+      <stop offset="1" stop-color="#ffd98d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1260" cy="305" r="250" fill="url(#sun)"/>
+  <path d="M0 470 C260 430 410 470 650 440 C900 408 1100 435 1600 385 L1600 900 L0 900 Z" fill="url(#sea)" opacity="0.86"/>
+  <path d="M0 610 C230 575 360 615 580 585 C780 558 1055 600 1600 536" fill="none" stroke="#fff6e8" stroke-opacity="0.38" stroke-width="8"/>
+  <path d="M0 674 C255 646 425 681 640 655 C850 630 1080 675 1600 615" fill="none" stroke="#fff6e8" stroke-opacity="0.25" stroke-width="6"/>
+  <path d="M0 742 C290 715 470 756 720 725 C950 696 1180 746 1600 688" fill="none" stroke="#fff6e8" stroke-opacity="0.18" stroke-width="5"/>
+  <path d="M790 473 C890 438 1020 456 1134 420 C1245 385 1378 390 1600 346 L1600 900 L783 900 Z" fill="#132a3e" opacity="0.22"/>
+  <path d="M995 427 L1022 427 L1037 602 L980 602 Z" fill="#19334a"/>
+  <rect x="984" y="395" width="49" height="32" rx="3" fill="#203f58"/>
+  <rect x="1001" y="346" width="16" height="52" fill="#203f58"/>
+  <circle cx="1009" cy="337" r="18" fill="#eef4ef"/>
+  <path d="M1292 708 C1286 660 1300 617 1329 584 C1347 563 1370 578 1358 606 C1342 644 1342 677 1368 705 C1396 735 1391 776 1353 787 C1317 797 1299 753 1292 708 Z" fill="#10263a" opacity="0.72"/>
+  <path d="M1367 710 C1362 665 1376 629 1402 600 C1418 582 1436 596 1427 618 C1412 654 1414 688 1436 715 C1461 746 1451 780 1418 788 C1390 795 1372 755 1367 710 Z" fill="#10263a" opacity="0.68"/>
+  <path d="M0 780 C250 742 475 775 705 746 C940 716 1200 768 1600 730 L1600 900 L0 900 Z" fill="#09213a" opacity="0.28"/>
+  <rect width="1600" height="900" fill="#081b30" opacity="0.06"/>
+  <circle cx="1235" cy="315" r="68" fill="#fff3c0" opacity="0.42" filter="url(#soft)"/>
+</svg>

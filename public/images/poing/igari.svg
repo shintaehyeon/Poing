@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="이가리 닻 전망대와 북부 해안을 표현한 POING 자체 제작 비주얼">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#cddde4"/><stop offset="0.55" stop-color="#7bb0c0"/><stop offset="1" stop-color="#19405b"/></linearGradient>
+    <linearGradient id="sea" x1="0" x2="1"><stop offset="0" stop-color="#0f4962"/><stop offset="0.52" stop-color="#3d91a3"/><stop offset="1" stop-color="#0b334d"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <path d="M0 405 C200 370 390 412 585 384 C800 354 975 400 1200 358 L1200 800 L0 800 Z" fill="url(#sea)"/>
+  <path d="M0 595 C280 540 460 590 660 555 C870 518 1002 558 1200 520 L1200 800 L0 800 Z" fill="#0a2b42" opacity="0.28"/>
+  <path d="M830 400 C930 360 1015 380 1100 320 L1200 268 L1200 800 L810 800 Z" fill="#2d563e"/>
+  <path d="M265 500 C390 440 515 440 640 505" fill="none" stroke="#f0eee5" stroke-width="42" stroke-linecap="round"/>
+  <path d="M315 505 V640 M592 504 V640" stroke="#f0eee5" stroke-width="20" stroke-linecap="round"/>
+  <path d="M330 502 C430 470 505 475 585 508" fill="none" stroke="#7b7f7f" stroke-width="7" stroke-linecap="round"/>
+  <path d="M438 365 V535" stroke="#f4efe3" stroke-width="26" stroke-linecap="round"/>
+  <path d="M438 505 C395 485 370 450 374 410 M438 505 C482 485 506 450 502 410" fill="none" stroke="#f4efe3" stroke-width="22" stroke-linecap="round"/>
+  <circle cx="438" cy="380" r="34" fill="none" stroke="#f4efe3" stroke-width="18"/>
+  <path d="M230 650 C365 610 510 642 650 612" fill="none" stroke="#fff4de" stroke-opacity="0.44" stroke-width="7"/>
+</svg>
