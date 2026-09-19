@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="포항 스페이스워크를 표현한 POING 자체 제작 비주얼">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#385c78"/><stop offset="0.5" stop-color="#e5b77a"/><stop offset="1" stop-color="#15263f"/></linearGradient>
+    <linearGradient id="land" x1="0" x2="1"><stop offset="0" stop-color="#162a3b"/><stop offset="1" stop-color="#263d35"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <circle cx="820" cy="298" r="86" fill="#ffd681" opacity="0.72"/>
+  <path d="M0 520 C210 450 390 510 575 463 C770 414 955 471 1200 400 L1200 800 L0 800 Z" fill="url(#land)"/>
+  <path d="M160 575 C260 405 430 405 510 535 C590 675 780 652 840 512 C906 358 1070 340 1150 505" fill="none" stroke="#e8e7df" stroke-width="28" stroke-linecap="round"/>
+  <path d="M160 575 C260 405 430 405 510 535 C590 675 780 652 840 512 C906 358 1070 340 1150 505" fill="none" stroke="#778087" stroke-width="8" stroke-linecap="round"/>
+  <path d="M310 530 C365 405 470 401 535 502 C598 602 735 610 794 496 C858 372 970 355 1038 450" fill="none" stroke="#f5f1e8" stroke-width="22" stroke-linecap="round"/>
+  <path d="M310 530 C365 405 470 401 535 502 C598 602 735 610 794 496 C858 372 970 355 1038 450" fill="none" stroke="#79838a" stroke-width="7" stroke-linecap="round"/>
+  <g stroke="#f4efe3" stroke-width="8" stroke-linecap="round" opacity="0.75">
+    <path d="M240 515 V650"/><path d="M382 438 V650"/><path d="M515 532 V680"/><path d="M690 608 V704"/><path d="M835 515 V678"/><path d="M990 405 V650"/>
+  </g>
+  <path d="M0 650 C250 610 415 660 640 624 C865 588 990 632 1200 590 L1200 800 L0 800 Z" fill="#0c2134" opacity="0.42"/>
+</svg>

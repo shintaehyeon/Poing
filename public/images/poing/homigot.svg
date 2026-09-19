@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="호미곶 일출을 표현한 POING 자체 제작 비주얼">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#244864"/><stop offset="0.52" stop-color="#f2c47a"/><stop offset="1" stop-color="#0f2b45"/></linearGradient>
+    <linearGradient id="water" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6f99a5"/><stop offset="1" stop-color="#17344d"/></linearGradient>
+    <radialGradient id="sun" cx="71%" cy="40%" r="28%"><stop offset="0" stop-color="#fff8ca"/><stop offset="0.38" stop-color="#ffc76b"/><stop offset="1" stop-color="#ffc76b" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <circle cx="845" cy="320" r="220" fill="url(#sun)"/>
+  <path d="M0 388 C180 360 310 405 510 376 C725 344 860 388 1200 340 L1200 800 L0 800 Z" fill="url(#water)" opacity="0.9"/>
+  <path d="M0 505 C190 482 365 518 565 493 C780 465 960 505 1200 475" fill="none" stroke="#fff4df" stroke-opacity="0.4" stroke-width="7"/>
+  <path d="M0 594 C210 572 405 610 610 583 C805 557 1000 598 1200 570" fill="none" stroke="#fff4df" stroke-opacity="0.22" stroke-width="5"/>
+  <path d="M690 572 C680 515 696 462 731 421 C751 397 778 414 766 448 C749 491 752 532 783 569 C817 611 804 660 761 671 C722 681 700 622 690 572 Z" fill="#102842"/>
+  <path d="M780 575 C772 522 788 478 818 444 C837 423 859 439 847 467 C831 507 834 546 861 578 C891 614 879 657 843 668 C808 678 788 625 780 575 Z" fill="#102842" opacity="0.9"/>
+  <ellipse cx="740" cy="690" rx="245" ry="33" fill="#081e35" opacity="0.35"/>
+</svg>

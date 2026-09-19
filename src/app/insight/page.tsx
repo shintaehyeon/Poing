@@ -1,9 +1,26 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import PageShell from '@/components/poing/PageShell';
-import { apiPills, itineraryPlaces, visitorGroups } from '@/lib/poing-content';
+import { getIntegrationStatus } from '@/lib/server/api-status';
+import { getPohangTourApiData, pickKtoItineraryPlaces } from '@/lib/server/kto-tour';
+import { getRelatedTourPlaces, getTourCongestion, getVisitorTrend } from '@/lib/server/tour-supplements';
 
-export default function InsightPage() {
-  const place = itineraryPlaces[0];
+export const dynamic = 'force-dynamic';
+
+const count = (value: number) => new Intl.NumberFormat('ko-KR', { maximumFractionDigits: 0 }).format(value);
+const stateText = (state: string) => state === 'configured' ? '키 설정됨' : '키 필요';
+
+export default async function InsightPage() {
+  const tour = await getPohangTourApiData();
+  const lead = pickKtoItineraryPlaces(tour.places)[0] ?? tour.places[0];
+  const signalPlace = '영일대해수욕장';
+  const [related, congestion, visitors] = await Promise.all([
+    getRelatedTourPlaces(signalPlace),
+    getTourCongestion(signalPlace),
+    getVisitorTrend(),
+  ]);
+  const integrations = getIntegrationStatus();
+  const maxForecast = Math.max(...congestion.forecast.map((item) => item.rate), 100);
 
   return (
     <PageShell
@@ -11,87 +28,90 @@ export default function InsightPage() {
       aside={
         <>
           <section className="panel dark">
-            <h3>사용 데이터</h3>
-            <p>추천 근거는 장소 정보, 방문 흐름, 혼잡 예상, 이동 시간을 함께 비교해 만듭니다.</p>
-            <div className="api-pills">
-              {apiPills.map((label) => (
-                <span key={label}>{label}</span>
+            <h3>API 연결 상태</h3>
+            <p>아래 표는 키 설정 여부입니다. 실제 응답 성공 여부는 각 데이터 카드에 별도로 표시합니다.</p>
+            <div className="integration-status-list">
+              {integrations.map((api) => (
+                <div key={api.key}>
+                  <span>{api.label}</span>
+                  <b className={api.state === 'configured' ? 'ready' : ''}>{stateText(api.state)}</b>
+                </div>
               ))}
-            </div>
-          </section>
-
-          <section className="panel soft">
-            <span className="field-title">연결성이 높은 장소</span>
-            <div className="mini-list">
-              <span>스페이스워크</span>
-              <span>환호공원</span>
-              <span>죽도시장</span>
             </div>
           </section>
         </>
       }
-      description="POING은 관광 정보를 나열하지 않고, 지금 여정에 어울리는 이유를 장소별로 보여줍니다."
-      eyebrow="Recommendation reason"
-      title={`${place.name}가 첫 장소인 이유`}
+      description="장소와 사진을 가져오는 데서 끝나지 않고, 연관 방문·향후 혼잡·지역 방문자·이동 데이터를 일정 판단 근거로 연결합니다."
+      eyebrow="Live data evidence"
+      title="POING이 이 여정을 고른 실제 근거"
     >
-      <section className="detail-hero">
-        <span>{place.name}</span>
+      <section className="detail-hero photo">
+        {lead?.imageUrl && (
+          <Image alt={lead.title} fill sizes="(max-width: 1200px) 100vw, 820px" src={lead.imageUrl} unoptimized />
+        )}
+        <span>{lead?.title ?? '포항 여행'}</span>
       </section>
 
       <section className="metric-grid">
-        <div>
-          <strong>추천 시간대</strong>
-          <span>{place.time}</span>
-        </div>
-        <div>
-          <strong>예상 체류</strong>
-          <span>{place.duration}</span>
-        </div>
-        <div>
-          <strong>혼잡도</strong>
-          <span>{place.congestion}</span>
-        </div>
+        <div><strong>관광 장소</strong><span>{tour.connected ? tour.places.length : '키 대기'}</span></div>
+        <div><strong>혼잡 집중률</strong><span>{congestion.connected ? `${congestion.rate?.toFixed(1)} / 100` : '데이터 없음'}</span></div>
+        <div><strong>기간 추정 방문량</strong><span>{visitors.connected ? count(visitors.totalVisitors) : '데이터 없음'}</span></div>
       </section>
 
-      <section className="panel">
-        <span className="field-title">추천 근거</span>
-        <h3>도착 직후 부담 없이 시작할 수 있는 바다 코스입니다.</h3>
-        <p>
-          방문자 수가 높은 장소이고, 스페이스워크와 연결성이 높습니다. 현재 혼잡도는 보통으로 예상되어
-          첫 장소로 유지하기 좋습니다.
-        </p>
+      <section className="panel insight-source-panel">
+        <span className="field-title">장소 정보와 사진</span>
+        <h3>{tour.connected ? '한국관광공사 데이터가 실제 장소 카드에 적용됐습니다.' : '키와 활용 승인이 완료되면 관광공사 장소 데이터로 바뀝니다.'}</h3>
+        <p>{lead?.overview || lead?.address || tour.reason || 'areaBasedList2, detailCommon2, detailIntro2, detailImage2 응답을 기다리고 있습니다.'}</p>
         <div className="tag-row">
-          <span>인기 장소</span>
-          <span>연관 코스 높음</span>
-          <span>{place.next}</span>
+          {(lead?.sourceApis ?? ['areaBasedList2', 'detailCommon2', 'detailIntro2', 'detailImage2']).map((api) => <span key={api}>{api}</span>)}
         </div>
+        {tour.connected && <small className="source-note">출처: ⓒ한국관광공사</small>}
       </section>
 
-      <section className="visitor-board">
-        {visitorGroups.map((group) => (
-          <article className="visitor-group" key={group.title}>
-            <strong>{group.title}</strong>
-            <span>{group.caption}</span>
-            {group.items.map((item) => (
-              <div className="visitor-row" key={item.label}>
-                <span>{item.label}</span>
-                <meter max="100" value={item.value} />
-                <b>{item.value}</b>
+      <section className="insight-live-grid">
+        <article className="panel">
+          <span className="field-title">연관 관광지 TOP 10 · {signalPlace} 기준</span>
+          <div className="insight-ranking">
+            {related.items.map((item) => (
+              <div key={`${item.rank}-${item.title}`}>
+                <b>{String(item.rank).padStart(2, '0')}</b>
+                <span><strong>{item.title}</strong><small>{item.reason}</small></span>
               </div>
             ))}
-          </article>
-        ))}
+          </div>
+          <small className="source-note">{related.source}{related.baseMonth ? ` · ${related.baseMonth}` : ''}</small>
+        </article>
+
+        <article className="panel">
+          <span className="field-title">향후 30일 집중률 · {signalPlace} 기준</span>
+          {congestion.forecast.length ? (
+            <div className="forecast-chart">
+              {congestion.forecast.map((item) => (
+                <i key={item.date} style={{ height: `${Math.max(8, item.rate / maxForecast * 100)}%` }} title={`${item.date} · ${item.rate}`} />
+              ))}
+            </div>
+          ) : <p>{congestion.message}</p>}
+          <strong>{congestion.level}</strong>
+          <small className="source-note">{congestion.source}</small>
+        </article>
       </section>
 
       <section className="panel">
-        <span className="field-title">장소 선택</span>
+        <span className="field-title">포항 지역 추정 방문량</span>
+        <div className="visitor-summary">
+          <div><span>전체</span><strong>{visitors.connected ? count(visitors.totalVisitors) : '-'}</strong></div>
+          <div><span>내국인</span><strong>{visitors.connected ? count(visitors.domesticVisitors) : '-'}</strong></div>
+          <div><span>외국인</span><strong>{visitors.connected ? count(visitors.foreignVisitors) : '-'}</strong></div>
+        </div>
+        <p>{visitors.message}</p>
+        <small className="source-note">{visitors.source}</small>
+      </section>
+
+      <section className="panel">
+        <span className="field-title">일정 선택</span>
         <div className="side-actions">
-          <Link className="primary-action" href="/plan/confirm">
-            일정에 유지
-          </Link>
-          <Link className="secondary-action" href="/travel/modify">
-            다른 장소 보기
-          </Link>
+          <Link className="primary-action" href="/plan/confirm">일정에 유지</Link>
+          <Link className="secondary-action" href="/travel/modify">다른 장소 보기</Link>
         </div>
       </section>
     </PageShell>

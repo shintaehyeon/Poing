@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="구룡포 근대 거리와 항구를 표현한 POING 자체 제작 비주얼">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#d9e0d9"/><stop offset="0.55" stop-color="#b8cad2"/><stop offset="1" stop-color="#35506b"/></linearGradient>
+    <linearGradient id="road" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#c6b8a4"/><stop offset="1" stop-color="#594536"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <path d="M0 482 C225 452 430 480 598 454 C780 426 970 462 1200 430 L1200 800 L0 800 Z" fill="#446f82" opacity="0.46"/>
+  <path d="M420 800 L548 420 L644 420 L806 800 Z" fill="url(#road)"/>
+  <path d="M0 390 H345 L345 800 H0 Z" fill="#6c4936"/>
+  <path d="M855 360 H1200 V800 H855 Z" fill="#74513e"/>
+  <path d="M0 338 H370 L335 396 H0 Z M830 308 H1200 V372 H858 Z" fill="#2e2a26"/>
+  <rect x="65" y="430" width="90" height="125" fill="#d7c7aa"/><rect x="205" y="425" width="85" height="120" fill="#d7c7aa"/>
+  <rect x="925" y="410" width="100" height="135" fill="#d8c9ad"/><rect x="1068" y="405" width="80" height="122" fill="#d8c9ad"/>
+  <g stroke="#2f2b28" stroke-width="8"><path d="M415 418 H650"/><path d="M455 455 H690"/><path d="M493 492 H728"/></g>
+  <path d="M505 380 H638 L616 430 H527 Z" fill="#352d25"/>
+  <path d="M0 638 C220 594 404 648 603 610 C820 568 990 620 1200 575 L1200 800 L0 800 Z" fill="#152a3c" opacity="0.18"/>
+</svg>

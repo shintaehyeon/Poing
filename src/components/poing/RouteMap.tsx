@@ -1,10 +1,21 @@
+ 'use client';
+
+import GeoRouteMap from './GeoRouteMap';
+import { findPohangCoordinate } from '@/lib/pohang-coordinates';
+import { useTrip } from '@/lib/use-trip';
+
 export default function RouteMap({ large = false }: { large?: boolean }) {
+  const { places } = useTrip();
+  const points = places.flatMap((place) => {
+    const coordinate = place.mapX && place.mapY
+      ? { x: place.mapX, y: place.mapY }
+      : findPohangCoordinate(place.officialTitle);
+    return coordinate ? [{ name: place.name, coordinate }] : [];
+  });
   return (
-    <div className={large ? 'route-map large' : 'route-map'} aria-label="포항 여행 동선">
-      <span className="pin p1" />
-      <span className="pin p2 current" />
-      <span className="pin p3" />
-      <span className="route-line" />
+    <div className="geo-route-shell">
+      <GeoRouteMap large={large} points={points} />
+      <small>OpenStreetMap · 점선은 장소를 잇는 안내선이며 실제 도로 경로가 아닙니다.</small>
     </div>
   );
 }
