@@ -4957,6 +4957,70 @@ button.auth-button {
   }
 }
 
+/* Alignment guard: keep labels optically centered as cards and controls resize. */
+.service-page .choice-grid button,
+.service-page .compact-choice-row button,
+.service-page .planner-tabs button,
+.service-page .region-tabs button,
+.service-page .map-region-tabs button,
+.service-page .live-data-tabs button,
+.service-page .feedback-row button,
+.service-page .side-actions button,
+.service-page .row-actions button,
+.service-page .primary-action,
+.service-page .secondary-action,
+.service-page .auth-button,
+.service-page .event-trail span,
+.service-page .api-pills span,
+.service-page .tag-row span,
+.service-page .mini-list span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.service-page .panel,
+.service-page .side-column,
+.service-page .memory-layout {
+  align-items: start;
+}
+
+.service-page .panel {
+  align-content: start;
+}
+
+.service-page .side-column > *,
+.service-page .memory-layout > * {
+  width: 100%;
+}
+
+.service-page .event-trail,
+.service-page .api-pills,
+.service-page .tag-row,
+.service-page .mini-list {
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.service-page .event-trail span,
+.service-page .api-pills span,
+.service-page .tag-row span,
+.service-page .mini-list span {
+  min-height: 34px;
+  padding: 7px 12px;
+  align-self: flex-start;
+}
+
+.service-page .side-actions > *,
+.service-page .row-actions > *,
+.service-page .feedback-row > * {
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 14px;
+}
+
 @media (max-width: 760px) {
   .planner-page .service-sidebar {
     grid-template-columns: auto minmax(0, 1fr);
