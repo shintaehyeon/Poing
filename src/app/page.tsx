@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import BestPohang from '@/components/poing/BestPohang';
+import FoodPlacesTicker from '@/components/poing/FoodPlacesTicker';
 import LandingJourneyPlanner from '@/components/poing/LandingJourneyPlanner';
 import LiveTime from '@/components/poing/LiveTime';
 import RecommendedPlacesTicker, { type RecommendedPlaceItem } from '@/components/poing/RecommendedPlacesTicker';
@@ -80,9 +81,12 @@ export default async function LandingPage() {
     credit: officialPlaceById.homigot.imageCredit,
   };
   const foodPlaces = tour.places.filter((place) => place.contentTypeId === '39' && place.imageUrl);
-  const diningPlaces = foodPlaces.filter((place) => !isCafePlace(place.title)).slice(0, 4);
-  const cafePlaces = foodPlaces.filter((place) => isCafePlace(place.title)).slice(0, 4);
-  const foodHighlights = Array.from({ length: 4 }, (_, index) => [diningPlaces[index], cafePlaces[index]])
+  const diningPlaces = foodPlaces.filter((place) => !isCafePlace(place.title));
+  const cafePlaces = foodPlaces.filter((place) => isCafePlace(place.title));
+  const foodHighlights = Array.from(
+    { length: Math.max(diningPlaces.length, cafePlaces.length) },
+    (_, index) => [diningPlaces[index], cafePlaces[index]],
+  )
     .flat()
     .filter((place): place is NonNullable<typeof place> => Boolean(place));
   const apiRecommendedPlaces: RecommendedPlaceItem[] = tour.places
@@ -237,29 +241,7 @@ export default async function LandingPage() {
             </div>
             <p>물회 한 그릇부터 바다를 바라보는 카페까지, 포항의 하루를 맛으로 이어갑니다.</p>
           </div>
-          <div className="food-discovery-grid">
-            {foodHighlights.map((place) => {
-              const cafe = isCafePlace(place.title);
-              const menu = place.intro?.firstmenu ?? place.intro?.treatmenu;
-              return (
-                <Link className="food-place-card" href={`/places/${place.contentId}`} key={place.contentId}>
-                  <span className="food-place-photo">
-                    <Image
-                      alt={`${place.title} 사진`}
-                      fill
-                      sizes="(max-width: 760px) 80vw, 280px"
-                      src={place.imageUrl}
-                      unoptimized
-                    />
-                    <em>{cafe ? '카페' : '로컬 맛집'}</em>
-                  </span>
-                  <strong>{place.title}</strong>
-                  <p>{menu || place.address.replace('경상북도 포항시 ', '')}</p>
-                  <small>출처: ⓒ한국관광공사</small>
-                </Link>
-              );
-            })}
-          </div>
+          <FoodPlacesTicker places={foodHighlights} />
         </section>
       )}
 

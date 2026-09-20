@@ -6085,6 +6085,79 @@ button.auth-button {
   line-height: 1.7;
 }
 
+.food-discovery-ticker {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+}
+
+.food-ticker-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 20px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.food-ticker-status p,
+.food-ticker-status span {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.food-ticker-status p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffd58d;
+}
+
+.food-ticker-status i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #df3a86;
+  box-shadow: 0 0 0 5px rgba(223, 58, 134, 0.2);
+}
+
+.food-ticker-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.food-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: food-ticker-scroll var(--food-ticker-duration) linear infinite;
+  will-change: transform;
+}
+
+.food-discovery-ticker:hover .food-ticker-track,
+.food-discovery-ticker:focus-within .food-ticker-track {
+  animation-play-state: paused;
+}
+
+.food-ticker-set {
+  display: flex;
+  gap: 18px;
+  padding-right: 18px;
+}
+
+.food-ticker-card {
+  flex: 0 0 clamp(270px, 25vw, 320px);
+  width: clamp(270px, 25vw, 320px);
+}
+
+@keyframes food-ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .food-discovery-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -6294,6 +6367,16 @@ button.auth-button {
     scroll-snap-align: start;
   }
 
+  .food-ticker-status span {
+    display: none;
+  }
+
+  .food-ticker-card {
+    flex-basis: min(82vw, 300px);
+    width: min(82vw, 300px);
+    min-width: min(82vw, 300px);
+  }
+
   .destination-ticker-status span {
     display: none;
   }
@@ -6324,6 +6407,18 @@ button.auth-button {
   }
 
   .destination-ticker-set[aria-hidden="true"] {
+    display: none;
+  }
+
+  .food-ticker-viewport {
+    overflow-x: auto;
+  }
+
+  .food-ticker-track {
+    animation: none;
+  }
+
+  .food-ticker-set[aria-hidden="true"] {
     display: none;
   }
 }
