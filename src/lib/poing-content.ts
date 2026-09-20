@@ -161,7 +161,7 @@ export const regionRoutes = [
     label: '북포항',
     headline: '바다와 전망이 이어지는 북포항 해안 여행',
     keyword: '북포항 해안',
-    description: '이가리 닻 전망대, 월포, 청하, 스페이스워크를 묶어 바다 전망과 사진 포인트를 넓게 잡습니다.',
+    description: '이가리 닻 전망대, 청하공진시장, 곤륜산, 스페이스워크를 묶어 바다 전망과 사진 포인트를 넓게 잡습니다.',
     accent: 'green',
     categories: [
       { label: '포항10미', mark: '10' },
@@ -175,17 +175,17 @@ export const regionRoutes = [
       {
         label: '1코스',
         tone: 'orange',
-        places: ['이가리 닻 전망대', '월포해수욕장', '청하공진시장', '포항해상스카이워크'],
+        places: ['이가리 닻 전망대', '청하공진시장', '곤륜산 활공장', '스페이스워크'],
       },
       {
         label: '2코스',
         tone: 'pink',
-        places: ['사방기념공원', '이가리 닻 전망대', '칠포해수욕장', '곤륜산 활공장'],
+        places: ['경상북도수목원', '내연산 보경사', '청하공진시장', '이가리 닻 전망대'],
       },
       {
         label: '3코스',
         tone: 'blue',
-        places: ['포항역', '청하공진시장', '월포해수욕장', '이가리 닻 전망대'],
+        places: ['영일대전망대', '스페이스워크', '이가리 닻 전망대', '곤륜산 활공장'],
       },
     ],
   },
@@ -208,17 +208,17 @@ export const regionRoutes = [
       {
         label: '1코스',
         tone: 'orange',
-        places: ['영일대해수욕장', '포항 스페이스워크', '죽도어시장', '포항운하'],
+        places: ['영일대전망대', '스페이스워크', '죽도시장', '포항운하'],
       },
       {
         label: '2코스',
         tone: 'pink',
-        places: ['포항해상스카이워크', '환호공원', '영일대해수욕장', '죽도시장'],
+        places: ['포항문화원', '학도의용군 전승기념관', '죽도시장', '포항운하'],
       },
       {
         label: '3코스',
         tone: 'blue',
-        places: ['철길숲&불의 정원', '죽도시장', '송도솔밭도시숲', '포항운하'],
+        places: ['Park1538 포스코역사박물관', '포항중앙상가', '영일대전망대', '스페이스워크'],
       },
     ],
   },
@@ -241,17 +241,17 @@ export const regionRoutes = [
       {
         label: '1코스',
         tone: 'orange',
-        places: ['도구해수욕장', '연오랑세오녀 테마공원', '구룡포 일본인 가옥거리', '호미곶'],
+        places: ['연오랑세오녀테마공원', '구룡포 일본인 가옥거리', '구룡포과메기문화관', '호미곶 해맞이광장'],
       },
       {
         label: '2코스',
         tone: 'pink',
-        places: ['구룡포 일본인 가옥거리', '구룡포 근대문화역사관', '호미곶 일출', '국립등대박물관'],
+        places: ['구룡포 주상절리', '국립등대박물관', '호미곶 해맞이광장', '구룡포 일본인 가옥거리'],
       },
       {
         label: '3코스',
         tone: 'blue',
-        places: ['상생의 손', '호미반도 해안둘레길', '연오랑세오녀 테마공원', '포스코 역사관'],
+        places: ['Park1538 포스코역사박물관', '연오랑세오녀테마공원', '구룡포과메기문화관', '구룡포 일본인 가옥거리'],
       },
     ],
   },
@@ -274,17 +274,17 @@ export const regionRoutes = [
       {
         label: '1코스',
         tone: 'orange',
-        places: ['보경사', '내연산 12폭포', '경상북도수목원'],
+        places: ['내연산 보경사', '경상북도수목원', '곡강천생태공원'],
       },
       {
         label: '2코스',
         tone: 'pink',
-        places: ['오어사', '운제산', '송도솔밭도시숲'],
+        places: ['오어사', '곡강천생태공원', '경상북도수목원'],
       },
       {
         label: '3코스',
         tone: 'blue',
-        places: ['기청산식물원', '청하공진시장', '내연산 치유의 숲'],
+        places: ['곤륜산 활공장', '내연산 보경사', '이가리 닻 전망대'],
       },
     ],
   },
@@ -308,12 +308,12 @@ export const pohangMapRoutes = [
       { name: '이가리 닻 전망대', x: 405, y: 103 },
       { name: '월포해수욕장', x: 474, y: 83 },
       { name: '청하공진시장', x: 425, y: 160 },
-      { name: '포항해상스카이워크', x: 333, y: 228 },
+      { name: '스페이스워크', x: 333, y: 228 },
     ],
     segments: [
       { from: '이가리 닻 전망대', to: '월포해수욕장', km: '5.3km', bus: '청하4번 또는 택시' },
       { from: '월포해수욕장', to: '청하공진시장', km: '4.5km', bus: '청하4번' },
-      { from: '청하공진시장', to: '포항해상스카이워크', km: '23.0km', bus: '5000번 + 9000번 환승' },
+      { from: '청하공진시장', to: '스페이스워크', km: '23.0km', bus: '5000번 + 9000번 환승' },
     ],
   },
   {
@@ -388,7 +388,7 @@ export const bestPohangGroups = [
     id: 'hot',
     label: '핫플레이스',
     items: [
-      { name: '포항해상스카이워크', imageUrl: official.hwanho.imageUrl, imageAlt: official.hwanho.imageAlt, sourceUrl: official.hwanho.sourceUrl },
+      { name: '스페이스워크', imageUrl: official.spacewalk.imageUrl, imageAlt: official.spacewalk.imageAlt, sourceUrl: official.spacewalk.sourceUrl },
       { name: '포항 스페이스워크', imageUrl: official.spacewalk.imageUrl, imageAlt: official.spacewalk.imageAlt, sourceUrl: official.spacewalk.sourceUrl },
       { name: '영일대&포스코 야경', imageUrl: official.yeongildae.imageUrl, imageAlt: official.yeongildae.imageAlt, sourceUrl: official.yeongildae.sourceUrl },
       { name: '포항운하', imageUrl: official.jukdo.imageUrl, imageAlt: official.jukdo.imageAlt, sourceUrl: official.jukdo.sourceUrl },
@@ -623,7 +623,7 @@ export const recommendationModes = [
     primaryPlaceId: 'igari',
     companions: ['혼자', '연인', '친구'],
     purposes: ['힐링/산책', '인생샷 찍기'],
-    route: ['이가리 닻전망대', '월포해수욕장', '청하공진시장', '포항해상스카이워크'],
+    route: ['이가리 닻전망대', '월포해수욕장', '청하공진시장', '스페이스워크'],
     copy:
       '북쪽 바다를 넓게 보는 전망 포인트를 먼저 두고, 사람이 붐비는 중심지보다 여유로운 해안선을 따라 움직입니다.',
     signals: ['전망대', '해안 드라이브', '사진', '여유'],

@@ -26,10 +26,14 @@ const previewKeyword = (name: string) => {
   return name.replace(/\s+/g, '');
 };
 
+const normalizePlaceName = (name: string) => name
+  .normalize('NFKC')
+  .replace(/[\s()[\]{}·ㆍ&,+\-]/g, '');
+
 const findPreviewPlace = (name: string, places: KtoPlace[]) => {
-  const keyword = previewKeyword(name).replace(/\s+/g, '');
+  const keyword = normalizePlaceName(previewKeyword(name));
   return places.find((place) => {
-    const title = place.title.replace(/\s+/g, '');
+    const title = normalizePlaceName(place.title);
     return title.includes(keyword) || keyword.includes(title);
   });
 };
@@ -37,6 +41,7 @@ const findPreviewPlace = (name: string, places: KtoPlace[]) => {
 export default function RegionalFlow({ compact = false, places = [] }: RegionalFlowProps) {
   const [activeId, setActiveId] = useState(regionRoutes[0].id);
   const [previewName, setPreviewName] = useState<string | null>(null);
+  const [previousPreview, setPreviousPreview] = useState<KtoPlace>();
   const activeRegion = useMemo(
     () => regionRoutes.find((region) => region.id === activeId) ?? regionRoutes[0],
     [activeId],
@@ -51,6 +56,17 @@ export default function RegionalFlow({ compact = false, places = [] }: RegionalF
   const mapUrl = activePreview?.mapX && activePreview.mapY
     ? `https://map.kakao.com/link/map/${encodeURIComponent(activePreview.title)},${activePreview.mapY},${activePreview.mapX}`
     : activePreview ? `/places/${activePreview.contentId}` : '#';
+  const selectRegion = (regionId: string) => {
+    if (regionId === activeId) return;
+    setPreviousPreview(activePreview);
+    setActiveId(regionId);
+    setPreviewName(null);
+  };
+  const selectPreview = (placeName: string, matchedPlace?: KtoPlace) => {
+    if (!matchedPlace || matchedPlace.contentId === activePreview?.contentId) return;
+    setPreviousPreview(activePreview);
+    setPreviewName(placeName);
+  };
 
   return (
     <section className={`regional-flow-section ${compact ? 'compact' : ''}`} id="regions">
@@ -65,10 +81,7 @@ export default function RegionalFlow({ compact = false, places = [] }: RegionalF
               aria-selected={region.id === activeRegion.id}
               className={region.id === activeRegion.id ? 'active' : ''}
               key={region.id}
-              onClick={() => {
-                setActiveId(region.id);
-                setPreviewName(null);
-              }}
+              onClick={() => selectRegion(region.id)}
               role="tab"
               type="button"
             >
@@ -79,18 +92,31 @@ export default function RegionalFlow({ compact = false, places = [] }: RegionalF
       </div>
 
       <div className={`region-board accent-${activeRegion.accent}`}>
-        {activePreview?.imageUrl && (
-          <Image
-            alt={`${activePreview.title} 실제 사진`}
-            className="region-board-photo"
-            fill
-            key={activePreview.contentId}
-            sizes="(max-width: 760px) 100vw, 1180px"
-            src={activePreview.imageUrl}
-            unoptimized
-          />
-        )}
-        <div className="region-copy">
+        <div className="region-photo-stack" aria-hidden="true">
+          {previousPreview?.imageUrl && previousPreview.contentId !== activePreview?.contentId && (
+            <Image
+              alt=""
+              className="region-board-photo is-leaving"
+              fill
+              key={`previous-${previousPreview.contentId}`}
+              sizes="(max-width: 760px) 100vw, 1180px"
+              src={previousPreview.imageUrl}
+              unoptimized
+            />
+          )}
+          {activePreview?.imageUrl && (
+            <Image
+              alt=""
+              className="region-board-photo is-entering"
+              fill
+              key={`active-${activePreview.contentId}`}
+              sizes="(max-width: 760px) 100vw, 1180px"
+              src={activePreview.imageUrl}
+              unoptimized
+            />
+          )}
+        </div>
+        <div className="region-copy" key={`${activeRegion.id}-copy`}>
           <span className="region-kicker">권역별 즐겨퐝</span>
           <h3>
             {activeRegion.headline.split(activeRegion.keyword)[0]}
@@ -99,7 +125,7 @@ export default function RegionalFlow({ compact = false, places = [] }: RegionalF
           </h3>
           <p>{activeRegion.description}</p>
           {activePreview && (
-            <a className="region-location-preview" href={mapUrl} rel="noreferrer" target={mapUrl.startsWith('http') ? '_blank' : undefined}>
+            <a className="region-location-preview" href={mapUrl} key={activePreview.contentId} rel="noreferrer" target={mapUrl.startsWith('http') ? '_blank' : undefined}>
               <span>LOCATION</span>
               <strong>{activePreview.title}</strong>
               <small>{activePreview.address}</small>
@@ -116,7 +142,7 @@ export default function RegionalFlow({ compact = false, places = [] }: RegionalF
           </div>
         </div>
 
-        <div className="region-course-list">
+        <div className="region-course-list" key={`${activeRegion.id}-courses`}>
           {activeRegion.courses.map((course) => (
             <article className={`region-course-row tone-${course.tone}`} key={course.label}>
               <strong>{course.label}</strong>
@@ -129,8 +155,8 @@ export default function RegionalFlow({ compact = false, places = [] }: RegionalF
                         aria-label={matchedPlace ? `${placeName} 사진과 위치 보기` : placeName}
                         className={matchedPlace && activePreview?.contentId === matchedPlace.contentId ? 'active' : ''}
                         disabled={!matchedPlace}
-                        onFocus={() => matchedPlace && setPreviewName(placeName)}
-                        onMouseEnter={() => matchedPlace && setPreviewName(placeName)}
+                        onFocus={() => selectPreview(placeName, matchedPlace)}
+                        onMouseEnter={() => selectPreview(placeName, matchedPlace)}
                         type="button"
                       >
                         {placeName}

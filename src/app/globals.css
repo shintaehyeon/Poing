@@ -6430,10 +6430,26 @@ button.auth-button {
   background-color: #0b293f;
 }
 
-.region-board-photo {
+.region-photo-stack {
+  position: absolute;
   z-index: 0;
+  inset: 0;
+  overflow: hidden;
+}
+
+.region-board-photo {
   object-fit: cover;
-  animation: region-photo-reveal 360ms ease both;
+  will-change: opacity, transform, filter;
+}
+
+.region-board-photo.is-entering {
+  z-index: 1;
+  animation: region-photo-enter 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.region-board-photo.is-leaving {
+  z-index: 0;
+  animation: region-photo-leave 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .region-board::after {
@@ -6452,6 +6468,11 @@ button.auth-button {
   z-index: 2;
 }
 
+.region-copy,
+.region-course-list {
+  animation: region-content-enter 860ms 90ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .region-location-preview {
   display: grid;
   gap: 4px;
@@ -6462,6 +6483,7 @@ button.auth-button {
   background: rgba(3, 20, 34, 0.5);
   color: white;
   backdrop-filter: blur(14px);
+  animation: region-location-enter 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
   transition: background 180ms ease, border-color 180ms ease;
 }
 
@@ -6733,9 +6755,32 @@ button.auth-button {
   font-size: 9px;
 }
 
-@keyframes region-photo-reveal {
-  from { opacity: 0.55; transform: scale(1.025); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes region-photo-enter {
+  from {
+    opacity: 0;
+    filter: saturate(0.8) brightness(0.82);
+    transform: scale(1.045);
+  }
+  to {
+    opacity: 1;
+    filter: saturate(1) brightness(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes region-photo-leave {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.985); }
+}
+
+@keyframes region-content-enter {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes region-location-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 760px) {
@@ -6791,6 +6836,9 @@ button.auth-button {
 
 @media (prefers-reduced-motion: reduce) {
   .region-board-photo,
+  .region-copy,
+  .region-course-list,
+  .region-location-preview,
   .time-card-photo,
   .time-card-copy p,
   .time-card-location {
