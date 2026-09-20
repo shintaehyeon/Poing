@@ -2045,6 +2045,65 @@ meter::-webkit-meter-optimum-value {
   box-shadow: 0 18px 42px rgba(23, 26, 23, 0.08);
 }
 
+.sun-card-content {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.sun-card-photo {
+  position: relative;
+  min-height: 156px;
+  overflow: hidden;
+  background: #173047;
+  color: white;
+}
+
+.sun-card-photo::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 17, 28, 0.04) 30%, rgba(5, 17, 28, 0.78) 100%);
+  content: "";
+}
+
+.sun-card-photo img {
+  object-fit: cover;
+}
+
+.sun-card-photo-copy {
+  position: absolute;
+  z-index: 1;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  display: grid;
+  gap: 3px;
+}
+
+.sun-card-photo-copy span {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.sun-card-photo-copy strong {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.sun-card-photo > small {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 12px;
+  max-width: calc(100% - 24px);
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 8px;
+  font-weight: 750;
+  text-align: right;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.44);
+}
+
 .sun-card.hero {
   align-self: end;
   max-width: 430px;
@@ -5358,8 +5417,8 @@ button.auth-button {
 .landing-hero-wash {
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(7, 24, 39, 0.84) 0%, rgba(7, 24, 39, 0.48) 48%, rgba(7, 24, 39, 0.2) 100%),
-    linear-gradient(180deg, rgba(5, 17, 28, 0.12), rgba(5, 17, 28, 0.68));
+    linear-gradient(90deg, rgba(7, 24, 39, 0.76) 0%, rgba(7, 24, 39, 0.36) 48%, rgba(7, 24, 39, 0.1) 100%),
+    linear-gradient(180deg, rgba(5, 17, 28, 0.06), rgba(5, 17, 28, 0.5));
   pointer-events: none;
 }
 
@@ -5414,18 +5473,41 @@ button.auth-button {
 
 .landing-v2 .sun-card.hero {
   align-content: start;
-  gap: 10px;
-  height: 220px !important;
+  gap: 0;
+  height: auto !important;
   min-height: 0;
-  max-width: 340px;
-  max-height: 220px;
-  padding: 14px;
+  max-width: 360px;
+  max-height: none;
+  padding: 0;
   transform: translateY(-8px);
-  border-radius: 12px;
+  border-radius: 16px;
+  background: rgba(255, 253, 247, 0.97);
 }
 
-.landing-v2 .sun-card.hero .sun-card-head {
+.landing-v2 .sun-card.hero .sun-card-content {
+  gap: 10px;
+  padding: 14px;
+}
+
+.landing-v2 .sun-card.hero.with-photo .sun-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 3px;
+}
+
+.landing-v2 .sun-card.hero.with-photo .sun-card-head::after {
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: #eef2e7;
+  color: #52643f;
+  content: "실시간";
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.landing-v2 .sun-card.hero.with-photo .sun-card-head strong {
+  display: none;
 }
 
 .landing-v2 .sun-card.hero .sun-metrics {
@@ -5844,7 +5926,16 @@ button.auth-button {
   }
 
   .landing-v2 .sun-card.hero {
-    display: none;
+    display: grid;
+    height: auto !important;
+    max-width: none;
+    max-height: none;
+    margin-top: 28px;
+    transform: none;
+  }
+
+  .landing-v2 .sun-card.hero .sun-card-photo {
+    min-height: 190px;
   }
 
   .hero-photo-credit {

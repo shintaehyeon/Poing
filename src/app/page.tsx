@@ -49,9 +49,35 @@ export default async function LandingPage() {
       id: place.contentId,
     } : { ...fallback, id: fallback.id };
   });
-  const heroPhoto = tour.photos.find((photo) => photo.title.includes('호미곶'))
-    ?? tour.photos.find((photo) => photo.title.includes('영일대'))
-    ?? tour.photos[0];
+  const heroGalleryPhoto = tour.photos.find((photo) => photo.title.includes('이가리'))
+    ?? tour.photos.find((photo) => photo.title.includes('스페이스워크'))
+    ?? tour.photos.find((photo) => photo.title.includes('영일대'));
+  const heroPlacePhoto = tour.places.find((place) => place.title.includes('이가리') && place.imageUrl)
+    ?? tour.places.find((place) => place.title.includes('스페이스워크') && place.imageUrl)
+    ?? tour.places.find((place) => place.title.includes('영일대') && place.imageUrl);
+  const heroPhoto: { imageUrl: string; sourceLabel: string; photographer?: string } = heroGalleryPhoto
+    ?? (heroPlacePhoto ? {
+      imageUrl: heroPlacePhoto.imageUrl,
+      sourceLabel: heroPlacePhoto.sourceLabel,
+    } : {
+      imageUrl: officialPlaceById.spacewalk.imageUrl,
+      sourceLabel: officialPlaceById.spacewalk.imageCredit,
+    });
+  const homigotGalleryPhoto = tour.photos.find((photo) => photo.title.includes('호미곶'));
+  const homigotPlacePhoto = tour.places.find((place) => place.title.includes('호미곶') && place.imageUrl);
+  const homigotPhoto = homigotGalleryPhoto ? {
+    src: homigotGalleryPhoto.imageUrl,
+    alt: '호미곶 해맞이광장과 상생의 손 실제 사진',
+    credit: `${homigotGalleryPhoto.sourceLabel}${homigotGalleryPhoto.photographer ? ` · ${homigotGalleryPhoto.photographer}` : ''}`,
+  } : homigotPlacePhoto ? {
+    src: homigotPlacePhoto.imageUrl,
+    alt: `${homigotPlacePhoto.title} 실제 사진`,
+    credit: homigotPlacePhoto.imageCredit ?? homigotPlacePhoto.sourceLabel,
+  } : {
+    src: officialPlaceById.homigot.imageUrl,
+    alt: officialPlaceById.homigot.imageAlt,
+    credit: officialPlaceById.homigot.imageCredit,
+  };
   const foodPlaces = tour.places.filter((place) => place.contentTypeId === '39' && place.imageUrl);
   const diningPlaces = foodPlaces.filter((place) => !isCafePlace(place.title)).slice(0, 4);
   const cafePlaces = foodPlaces.filter((place) => isCafePlace(place.title)).slice(0, 4);
@@ -72,17 +98,15 @@ export default async function LandingPage() {
           <small>포항의 오늘이 시작되는 중</small>
         </div>
 
-        {heroPhoto && (
-          <Image
-            alt="포항 바다 여행 풍경"
-            className="landing-hero-photo"
-            fill
-            priority
-            sizes="100vw"
-            src={heroPhoto.imageUrl}
-            unoptimized
-          />
-        )}
+        <Image
+          alt="포항 북부 해안과 대표 전망 명소의 실제 풍경"
+          className="landing-hero-photo"
+          fill
+          priority
+          sizes="100vw"
+          src={heroPhoto.imageUrl}
+          unoptimized
+        />
         <div className="landing-hero-wash" aria-hidden="true" />
 
         <nav className="editorial-nav" aria-label="POING">
@@ -103,11 +127,9 @@ export default async function LandingPage() {
           </div>
         </nav>
 
-        {heroPhoto && (
-          <span className="hero-photo-credit">
-            {heroPhoto.sourceLabel}{heroPhoto.photographer ? ` · ${heroPhoto.photographer}` : ''}
-          </span>
-        )}
+        <span className="hero-photo-credit">
+          {heroPhoto.sourceLabel}{heroPhoto.photographer ? ` · ${heroPhoto.photographer}` : ''}
+        </span>
 
         <span className="hero-marquee" aria-hidden="true">
           POHANG
@@ -136,7 +158,7 @@ export default async function LandingPage() {
             </div>
           </section>
 
-          <SunTimes variant="hero" />
+          <SunTimes photo={homigotPhoto} variant="hero" />
         </div>
 
         <LandingJourneyPlanner />
