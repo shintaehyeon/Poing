@@ -18,6 +18,14 @@ const TOUR_CONTENT_TYPES = [
   { contentTypeId: '39', label: '음식점' },
 ];
 
+const CONTENT_TYPE_LIMITS: Record<string, number> = {
+  '12': 16,
+  '14': 8,
+  '28': 6,
+  '38': 12,
+  '39': 12,
+};
+
 const FEATURED_PLACE_KEYWORDS = [
   '영일대전망대',
   '환호공원 스페이스워크',
@@ -315,7 +323,6 @@ export const getPohangTourApiData = async (): Promise<KtoDataResult> => {
         ?? matches.find((item) => item.title?.includes(keyword) && item.addr1?.includes('포항'));
       return match ? { ...match, __sourceApi: 'searchKeyword2' } : undefined;
     }));
-    const categoryLabels = new Map(TOUR_CONTENT_TYPES.map((item) => [item.contentTypeId, item.label]));
     const priorityIndex = new Map(FOOD_PRIORITY_TITLES.map((title, index) => [title, index]));
     const selectedFoodItems = [...foodItems]
       .filter((item) => item.contentid && item.firstimage)
@@ -325,20 +332,30 @@ export const getPohangTourApiData = async (): Promise<KtoDataResult> => {
         return aPriority - bPriority || (a.title ?? '').localeCompare(b.title ?? '', 'ko');
       })
       .slice(0, 12);
-    const seen = new Set<string>();
-    const basePlaces = [
-      ...featuredPlaces.flatMap((place) => place ? [place] : []),
-      ...selectedFoodItems,
-      ...areaItems,
-    ]
-      .filter((item) => categoryLabels.has(item.contenttypeid ?? ''))
-      .filter((item) => {
-        if (!item.contentid || seen.has(item.contentid)) return false;
-        seen.add(item.contentid);
-        return true;
-      })
-      .slice(0, 26)
-      .map((item) => ({ ...item, __categoryLabel: categoryLabels.get(item.contenttypeid ?? '') ?? '관광지' }));
+    const featuredItems = featuredPlaces.flatMap((place) => place ? [place] : []);
+    const basePlaces = TOUR_CONTENT_TYPES.flatMap(({ contentTypeId, label }) => {
+      const priorityItems = [
+        ...featuredItems.filter((item) => item.contenttypeid === contentTypeId),
+        ...(contentTypeId === '39' ? selectedFoodItems : []),
+      ];
+      const priorityIds = new Set(priorityItems.map((item) => item.contentid).filter(Boolean));
+      const remainingItems = areaItems
+        .filter((item) => item.contenttypeid === contentTypeId && !priorityIds.has(item.contentid))
+        .sort((a, b) => {
+          const imageDifference = Number(Boolean(b.firstimage || b.firstimage2)) - Number(Boolean(a.firstimage || a.firstimage2));
+          return imageDifference || (a.title ?? '').localeCompare(b.title ?? '', 'ko');
+        });
+      const seenInCategory = new Set<string>();
+
+      return [...priorityItems, ...remainingItems]
+        .filter((item) => {
+          if (!item.contentid || seenInCategory.has(item.contentid)) return false;
+          seenInCategory.add(item.contentid);
+          return true;
+        })
+        .slice(0, CONTENT_TYPE_LIMITS[contentTypeId] ?? 8)
+        .map((item) => ({ ...item, __categoryLabel: label }));
+    });
 
     const enriched = await Promise.all(
       basePlaces.map(async (place) => {
