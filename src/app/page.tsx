@@ -119,6 +119,23 @@ export default async function LandingPage() {
       href: place.sourceUrl,
       travelInfo: place.meta,
     }));
+  const timeSlotKeywords = ['호미곶', '영일대', '스페이스워크', '죽도'];
+  const liveTimeSlots = timeSlots.map((slot, index) => {
+    const place = tour.places.find((item) => item.title.includes(timeSlotKeywords[index]));
+    const mapUrl = place?.mapX && place.mapY
+      ? `https://map.kakao.com/link/map/${encodeURIComponent(place.title)},${place.mapY},${place.mapX}`
+      : place ? `/places/${place.contentId}` : slot.sourceUrl;
+
+    return {
+      ...slot,
+      place: place?.title ?? slot.place,
+      imageUrl: place?.imageUrl || slot.imageUrl,
+      address: place?.address ?? '경상북도 포항시',
+      credit: place?.imageCredit ?? place?.sourceLabel ?? '포항 공식 관광정보',
+      mapUrl,
+    };
+  });
+  const memoryPlace = liveTimeSlots[3];
 
   return (
     <main className="landing-page landing-v2">
@@ -208,7 +225,9 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <div className="landing-band landing-band-regions"><RegionalFlow /></div>
+      <div className="landing-band landing-band-regions">
+        <RegionalFlow places={tour.places} />
+      </div>
 
       <div className="landing-band landing-band-best"><BestPohang places={tour.connected ? tour.places : []} /></div>
 
@@ -246,11 +265,33 @@ export default async function LandingPage() {
       )}
 
       <section className="time-preview landing-time-band" aria-label="포항 시간대별 여정">
-        {timeSlots.map((item) => (
-          <article key={item.key} className={item.key}>
-            <span>{item.time}</span>
-            <strong>{item.place}</strong>
-            <p>{item.copy}</p>
+        {liveTimeSlots.map((item) => (
+          <article key={item.key} className={`time-place-card ${item.key}`} tabIndex={0}>
+            <Image
+              alt={`${item.place} 실제 사진`}
+              className="time-card-photo"
+              fill
+              sizes="(max-width: 760px) 82vw, 295px"
+              src={item.imageUrl}
+              unoptimized
+            />
+            <div className="time-card-scrim" aria-hidden="true" />
+            <div className="time-card-copy">
+              <span>{item.time}</span>
+              <strong>{item.place}</strong>
+              <p>{item.copy}</p>
+            </div>
+            <a
+              className="time-card-location"
+              href={item.mapUrl}
+              rel="noreferrer"
+              target={item.mapUrl.startsWith('http') ? '_blank' : undefined}
+            >
+              <span>LOCATION</span>
+              <strong>{item.address}</strong>
+              <em>지도에서 위치 보기 ↗</em>
+              <small>{item.credit}</small>
+            </a>
           </article>
         ))}
       </section>
@@ -258,19 +299,33 @@ export default async function LandingPage() {
       <section className="poem-section" id="memory">
         <div>
           <p className="eyebrow">POING Memory</p>
-          <h2>지나간 길은 사라지지 않고, 오늘의 문장으로 남습니다.</h2>
-          <p>
+          <h2 className="poem-heading">
+            <span>지나간 길은</span>
+            <span>사라지지 않고,</span>
+            <span>오늘의 문장으로 남습니다.</span>
+          </h2>
+          <p className="poem-description">
             여행자는 오래 입력하지 않아도 됩니다. 지나온 장소, 바꾼 일정, 좋았던 순간이 모여
             다음 포항을 더 섬세하게 추천하는 기록이 됩니다.
           </p>
         </div>
         <div className="memory-preview">
+          <Image
+            alt={`${memoryPlace.place}의 저녁 풍경`}
+            className="memory-preview-photo"
+            fill
+            sizes="(max-width: 760px) 100vw, 480px"
+            src={memoryPlace.imageUrl}
+            unoptimized
+          />
+          <div className="memory-preview-overlay" aria-hidden="true" />
           <span>2026 여름</span>
           <strong>바다에서 시작해 시장의 불빛으로 끝난 하루</strong>
           <p>영일대 · 스페이스워크 · 죽도시장</p>
           <Link className="primary-btn" href="/plan/create">
             POING 시작하기
           </Link>
+          <small className="memory-photo-credit">{memoryPlace.credit}</small>
         </div>
       </section>
     </main>

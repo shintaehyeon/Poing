@@ -6422,3 +6422,379 @@ button.auth-button {
     display: none;
   }
 }
+
+/* Photo-led location interactions */
+.region-board {
+  position: relative;
+  isolation: isolate;
+  background-color: #0b293f;
+}
+
+.region-board-photo {
+  z-index: 0;
+  object-fit: cover;
+  animation: region-photo-reveal 360ms ease both;
+}
+
+.region-board::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(4, 24, 42, 0.96) 0%, rgba(4, 31, 51, 0.81) 44%, rgba(4, 26, 43, 0.5) 72%, rgba(4, 24, 42, 0.68) 100%);
+  content: "";
+}
+
+.region-copy,
+.region-course-list,
+.region-photo-credit {
+  position: relative;
+  z-index: 2;
+}
+
+.region-location-preview {
+  display: grid;
+  gap: 4px;
+  width: min(100%, 420px);
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(3, 20, 34, 0.5);
+  color: white;
+  backdrop-filter: blur(14px);
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.region-location-preview:hover {
+  border-color: rgba(255, 213, 141, 0.8);
+  background: rgba(3, 20, 34, 0.72);
+}
+
+.region-location-preview span {
+  color: #ffd58d;
+  font-size: 10px;
+  font-weight: 950;
+}
+
+.region-location-preview strong {
+  overflow: hidden;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.region-location-preview small {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.region-location-preview em {
+  margin-top: 4px;
+  color: white;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.region-photo-credit {
+  position: absolute;
+  right: 18px;
+  bottom: 12px;
+  max-width: 46%;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.region-course-row span button {
+  all: unset;
+  padding-block: 2px;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.region-course-row span button:disabled {
+  cursor: default;
+  opacity: 0.62;
+}
+
+.region-course-row span button:not(:disabled):hover,
+.region-course-row span button:not(:disabled):focus-visible,
+.region-course-row span button.active {
+  border-color: #ffe45d;
+  color: #ffe45d;
+}
+
+.landing-v2 .time-preview article.time-place-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 360px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: #17364d;
+  box-shadow: 0 18px 44px rgba(30, 39, 45, 0.12);
+  outline: none;
+}
+
+.time-card-photo {
+  z-index: 0;
+  object-fit: cover;
+  transition: transform 520ms ease, filter 320ms ease;
+}
+
+.time-card-scrim {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(5, 22, 37, 0.12) 8%, rgba(5, 22, 37, 0.78) 100%);
+}
+
+.time-card-copy {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  align-content: end;
+  gap: 8px;
+  padding: 24px;
+  pointer-events: none;
+}
+
+.time-card-copy span,
+.time-card-copy strong,
+.time-card-copy p {
+  margin: 0;
+  color: white;
+}
+
+.time-card-copy span {
+  font-size: 12px;
+}
+
+.time-card-copy strong {
+  font-size: 25px;
+  line-height: 1.2;
+}
+
+.time-card-copy p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+  line-height: 1.55;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.time-card-location {
+  position: absolute;
+  z-index: 3;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  display: grid;
+  gap: 5px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 7px;
+  background: rgba(4, 24, 42, 0.88);
+  color: white;
+  opacity: 0;
+  transform: translateY(18px);
+  backdrop-filter: blur(14px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.time-card-location span {
+  color: #ffd58d;
+  font-size: 10px;
+}
+
+.time-card-location strong {
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.time-card-location em {
+  color: white;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.time-card-location small {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.time-place-card:hover .time-card-photo,
+.time-place-card:focus .time-card-photo,
+.time-place-card:focus-within .time-card-photo {
+  filter: brightness(0.72);
+  transform: scale(1.045);
+}
+
+.time-place-card:hover .time-card-copy p,
+.time-place-card:focus .time-card-copy p,
+.time-place-card:focus-within .time-card-copy p {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.time-place-card:hover .time-card-location,
+.time-place-card:focus .time-card-location,
+.time-place-card:focus-within .time-card-location {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.landing-v2 .poem-section {
+  grid-template-columns: minmax(0, 1.04fr) minmax(340px, 0.76fr);
+  gap: 72px;
+}
+
+.landing-v2 .poem-section .poem-heading {
+  max-width: 680px;
+  margin: 0;
+  overflow-wrap: normal;
+  font-size: 54px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.poem-heading span {
+  display: block;
+}
+
+.poem-heading span:nth-child(2) {
+  margin-left: 36px;
+}
+
+.poem-heading span:nth-child(3) {
+  margin-left: 72px;
+  color: #46564b;
+}
+
+.landing-v2 .poem-section .poem-description {
+  max-width: 620px;
+  margin-top: 30px;
+  font-size: 15px;
+  line-height: 1.82;
+}
+
+.memory-preview {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #10283b;
+}
+
+.memory-preview-photo {
+  z-index: 0;
+  object-fit: cover;
+}
+
+.memory-preview-overlay {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 24, 39, 0.12) 5%, rgba(6, 24, 39, 0.88) 92%);
+}
+
+.memory-preview > :not(.memory-preview-photo):not(.memory-preview-overlay) {
+  position: relative;
+  z-index: 2;
+}
+
+.memory-preview strong {
+  font-size: 42px;
+  line-height: 1.17;
+  letter-spacing: 0;
+}
+
+.memory-preview .memory-photo-credit {
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 9px;
+}
+
+@keyframes region-photo-reveal {
+  from { opacity: 0.55; transform: scale(1.025); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 760px) {
+  .region-board::after {
+    background: linear-gradient(180deg, rgba(4, 24, 42, 0.9) 0%, rgba(4, 24, 42, 0.68) 48%, rgba(4, 24, 42, 0.9) 100%);
+  }
+
+  .region-photo-credit {
+    right: 14px;
+    bottom: 8px;
+    max-width: 70%;
+  }
+
+  .landing-v2 .landing-time-band {
+    padding-inline: 18px;
+  }
+
+  .landing-v2 .time-preview article.time-place-card {
+    min-height: 380px;
+  }
+
+  .landing-v2 .poem-section {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-inline: 22px;
+  }
+
+  .landing-v2 .poem-section .poem-heading {
+    font-size: 38px;
+    line-height: 1.24;
+  }
+
+  .poem-heading span:nth-child(2),
+  .poem-heading span:nth-child(3) {
+    margin-left: 0;
+  }
+
+  .memory-preview strong {
+    font-size: 34px;
+  }
+}
+
+@media (hover: none) {
+  .time-card-location {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .time-card-copy p {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .region-board-photo,
+  .time-card-photo,
+  .time-card-copy p,
+  .time-card-location {
+    animation: none;
+    transition: none;
+  }
+}
