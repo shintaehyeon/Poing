@@ -21,11 +21,15 @@ const getSeoulTime = () => {
 };
 
 export default function LiveTime({ compact = false }: { compact?: boolean }) {
-  const [seoul, setSeoul] = useState(getSeoulTime);
+  const [seoul, setSeoul] = useState({ time: '--:--', date: '서울' });
 
   useEffect(() => {
+    const initial = window.setTimeout(() => setSeoul(getSeoulTime()), 0);
     const interval = window.setInterval(() => setSeoul(getSeoulTime()), 30_000);
-    return () => window.clearInterval(interval);
+    return () => {
+      window.clearTimeout(initial);
+      window.clearInterval(interval);
+    };
   }, []);
 
   return (
