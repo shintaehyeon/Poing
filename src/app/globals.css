@@ -5931,6 +5931,124 @@ button.auth-button {
   padding-bottom: 0;
 }
 
+.destination-ticker {
+  min-width: 0;
+}
+
+.destination-ticker-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(17, 24, 18, 0.12);
+  border-bottom: 1px solid rgba(17, 24, 18, 0.12);
+}
+
+.destination-ticker-status p,
+.destination-ticker-status span {
+  margin: 0;
+  color: #5f665f;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.destination-ticker-status p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #16717b;
+}
+
+.destination-ticker-status i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #df3a86;
+  box-shadow: 0 0 0 5px rgba(223, 58, 134, 0.12);
+}
+
+.destination-ticker-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.destination-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: destination-ticker-scroll var(--destination-ticker-duration) linear infinite;
+  will-change: transform;
+}
+
+.destination-ticker:hover .destination-ticker-track,
+.destination-ticker:focus-within .destination-ticker-track {
+  animation-play-state: paused;
+}
+
+.destination-ticker-set {
+  display: flex;
+  gap: 20px;
+  padding-right: 20px;
+}
+
+.destination-ticker-card {
+  flex: 0 0 clamp(292px, 31vw, 370px);
+  width: clamp(292px, 31vw, 370px);
+}
+
+.destination-ticker-card .destination-photo {
+  aspect-ratio: 1.36 / 1;
+}
+
+.destination-ticker-card > div:last-child {
+  grid-template-rows: auto auto minmax(66px, auto) auto auto;
+  align-content: start;
+  min-height: 278px;
+}
+
+.destination-ticker-card strong {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 2.1em;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.destination-ticker-card .destination-travel-info {
+  overflow: hidden;
+  margin: 0;
+  color: #324b45;
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.destination-ticker-card .place-description {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.destination-ticker-card small {
+  overflow: hidden;
+  color: #7a817b;
+  font-size: 10px;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes destination-ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .food-discovery-section {
   width: 100%;
   padding: clamp(72px, 8vw, 112px) 32px;
@@ -6175,6 +6293,15 @@ button.auth-button {
     min-width: 252px;
     scroll-snap-align: start;
   }
+
+  .destination-ticker-status span {
+    display: none;
+  }
+
+  .destination-ticker-card {
+    flex-basis: min(82vw, 320px);
+    width: min(82vw, 320px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6186,5 +6313,17 @@ button.auth-button {
   .landing-v2 .editorial-hero-content,
   .landing-journey-planner {
     animation: none;
+  }
+
+  .destination-ticker-viewport {
+    overflow-x: auto;
+  }
+
+  .destination-ticker-track {
+    animation: none;
+  }
+
+  .destination-ticker-set[aria-hidden="true"] {
+    display: none;
   }
 }

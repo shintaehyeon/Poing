@@ -3,6 +3,7 @@ import Image from 'next/image';
 import BestPohang from '@/components/poing/BestPohang';
 import LandingJourneyPlanner from '@/components/poing/LandingJourneyPlanner';
 import LiveTime from '@/components/poing/LiveTime';
+import RecommendedPlacesTicker, { type RecommendedPlaceItem } from '@/components/poing/RecommendedPlacesTicker';
 import RegionalFlow from '@/components/poing/RegionalFlow';
 import SunTimes from '@/components/poing/SunTimes';
 import { timeSlots } from '@/lib/poing-content';
@@ -84,6 +85,36 @@ export default async function LandingPage() {
   const foodHighlights = Array.from({ length: 4 }, (_, index) => [diningPlaces[index], cafePlaces[index]])
     .flat()
     .filter((place): place is NonNullable<typeof place> => Boolean(place));
+  const apiRecommendedPlaces: RecommendedPlaceItem[] = tour.places
+    .filter((place) => place.contentTypeId !== '39' && place.imageUrl)
+    .map((place) => ({
+      id: place.contentId,
+      title: place.title,
+      category: place.category,
+      address: place.address,
+      overview: place.overview,
+      imageUrl: place.imageUrl,
+      credit: place.imageCredit ?? place.sourceLabel,
+      href: `/places/${place.contentId}`,
+      travelInfo: place.intro?.usetime
+        ?? place.intro?.usetimeculture
+        ?? place.intro?.opentime
+        ?? place.intro?.infocenter
+        ?? place.address,
+    }));
+  const recommendedPlaces: RecommendedPlaceItem[] = apiRecommendedPlaces.length > 0
+    ? apiRecommendedPlaces
+    : liveFeatured.map((place) => ({
+      id: String(place.id),
+      title: place.title,
+      category: '포항 명소',
+      address: place.meta,
+      overview: place.description,
+      imageUrl: place.imageUrl,
+      credit: 'imageCredit' in place ? String(place.imageCredit ?? '') : undefined,
+      href: place.sourceUrl,
+      travelInfo: place.meta,
+    }));
 
   return (
     <main className="landing-page landing-v2">
@@ -186,34 +217,7 @@ export default async function LandingPage() {
           </div>
           <Link href="/plan/create">내 여정 시작하기</Link>
         </div>
-        <div className="destination-grid">
-          {liveFeatured.map((place) => (
-            <article className="destination-card" key={place.title}>
-              <div className={`destination-photo ${place.tone}`}>
-                <Image
-                  alt={place.imageAlt}
-                  fill
-                  sizes="(max-width: 760px) 100vw, (max-width: 1200px) 33vw, 390px"
-                  src={place.imageUrl}
-                  unoptimized
-                />
-                <span>POING</span>
-              </div>
-              <div>
-                <strong>{place.title}</strong>
-                <p>{place.meta}</p>
-                <p className="place-description">{place.description}</p>
-                {'imageCredit' in place && place.imageCredit && <small>{String(place.imageCredit)}</small>}
-                <div className="card-link-row">
-                  <Link href="/plan/create">여정 만들기</Link>
-                  {tour.connected && place.id !== officialPlaceById.yeongildae.id && place.id !== officialPlaceById.spacewalk.id && place.id !== officialPlaceById.jukdo.id
-                    ? <Link href={place.sourceUrl}>장소 정보</Link>
-                    : <a href={place.sourceUrl} rel="noreferrer" target="_blank">출처 보기</a>}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+        <RecommendedPlacesTicker places={recommendedPlaces} />
         <p className="official-note">
           장소 기본 정보는{' '}
           <a href={POHANG_TOUR_HOME} rel="noreferrer" target="_blank">
