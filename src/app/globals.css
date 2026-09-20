@@ -5263,3 +5263,594 @@ button.auth-button {
     grid-template-columns: minmax(0, 1fr) minmax(280px, 0.48fr);
   }
 }
+
+/* Landing v2: one-screen journey start and clearly separated content bands. */
+.landing-v2 {
+  padding: 0;
+  background: #f4f1e9;
+}
+
+.landing-v2 .editorial-hero {
+  height: clamp(680px, calc(100svh - 48px), 820px);
+  min-height: 0;
+  margin: 24px;
+  border-radius: 20px;
+  background: #173047 url("/images/poing/hero.svg") center / cover no-repeat;
+  isolation: isolate;
+}
+
+.landing-hero-photo,
+.landing-hero-wash {
+  position: absolute;
+  inset: 0;
+}
+
+.landing-hero-photo {
+  z-index: 0;
+  object-fit: cover;
+  animation: landing-photo-breathe 12s ease-out both;
+}
+
+.landing-hero-wash {
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(7, 24, 39, 0.84) 0%, rgba(7, 24, 39, 0.48) 48%, rgba(7, 24, 39, 0.2) 100%),
+    linear-gradient(180deg, rgba(5, 17, 28, 0.12), rgba(5, 17, 28, 0.68));
+  pointer-events: none;
+}
+
+.landing-v2 .editorial-nav {
+  z-index: 8;
+  min-height: 60px;
+  margin: 16px;
+  border-radius: 12px;
+}
+
+.landing-v2 .hero-marquee {
+  z-index: 2;
+  top: 22%;
+  color: rgba(255, 255, 255, 0.16);
+  font-size: 200px;
+}
+
+.landing-v2 .editorial-hero-content {
+  position: absolute;
+  z-index: 4;
+  inset: 88px 0 126px;
+  min-height: 0;
+  padding: 16px 72px 28px;
+  align-items: center;
+  animation: landing-content-rise 900ms 950ms both;
+}
+
+.landing-v2 .hero-statement {
+  transform: translateY(-56px);
+}
+
+.landing-v2 .hero-statement h1 {
+  max-width: 680px;
+  font-size: clamp(48px, 5vw, 72px);
+}
+
+.landing-v2 .poem-copy {
+  max-width: 590px;
+  margin-top: 14px;
+}
+
+.landing-v2 .brand-origin {
+  gap: 2px;
+  margin-top: 12px;
+  padding: 9px 12px;
+  border-radius: 8px;
+}
+
+.landing-v2 .actions {
+  display: none;
+}
+
+.landing-v2 .sun-card.hero {
+  align-content: start;
+  gap: 10px;
+  height: 220px !important;
+  min-height: 0;
+  max-width: 340px;
+  max-height: 220px;
+  padding: 14px;
+  transform: translateY(-8px);
+  border-radius: 12px;
+}
+
+.landing-v2 .sun-card.hero .sun-card-head {
+  gap: 3px;
+}
+
+.landing-v2 .sun-card.hero .sun-metrics {
+  gap: 6px;
+}
+
+.landing-v2 .sun-card.hero .sun-metrics div {
+  gap: 3px;
+  padding: 9px 8px;
+  border-radius: 10px;
+}
+
+.landing-v2 .sun-card.hero .sun-metrics strong {
+  font-size: clamp(23px, 2.4vw, 29px);
+}
+
+.landing-v2 .sun-card.hero p {
+  display: none;
+}
+
+.landing-v2 .sun-card.hero em {
+  display: none;
+}
+
+.hero-photo-credit {
+  position: absolute;
+  z-index: 5;
+  top: 88px;
+  right: 26px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.landing-journey-planner {
+  position: absolute;
+  z-index: 7;
+  right: 32px;
+  bottom: 22px;
+  left: 32px;
+  display: grid;
+  grid-template-columns: 1.25fr repeat(4, minmax(120px, 0.8fr)) minmax(165px, 0.9fr);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 12px;
+  background: rgba(255, 253, 247, 0.96);
+  color: #111812;
+  box-shadow: 0 24px 70px rgba(4, 17, 28, 0.34);
+  backdrop-filter: blur(20px);
+  animation: landing-planner-rise 900ms 1150ms both;
+}
+
+.landing-planner-title,
+.landing-journey-planner label,
+.landing-journey-planner > button {
+  min-width: 0;
+  min-height: 86px;
+  padding: 16px 18px;
+}
+
+.landing-planner-title,
+.landing-journey-planner label {
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  border-right: 1px solid rgba(17, 24, 18, 0.12);
+}
+
+.landing-planner-title span,
+.landing-journey-planner label > span {
+  color: #73776f;
+  font-size: 10px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.landing-planner-title strong {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.landing-journey-planner select {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #111812;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.landing-journey-planner > button {
+  border: 0;
+  background: #0c1710;
+  color: white;
+  font-size: 14px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.landing-journey-planner > button span {
+  margin-left: 8px;
+}
+
+.landing-journey-planner > button:hover {
+  background: #31462a;
+}
+
+.poing-opening {
+  position: absolute;
+  z-index: 30;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  background: #10243b;
+  color: white;
+  pointer-events: none;
+  animation: opening-curtain 1900ms cubic-bezier(0.77, 0, 0.18, 1) forwards;
+}
+
+.poing-opening::after {
+  content: "";
+  width: 0;
+  height: 1px;
+  margin-top: 22px;
+  background: rgba(255, 255, 255, 0.54);
+  animation: opening-line 900ms 180ms ease forwards;
+}
+
+.opening-formula {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  color: #ffd58d;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  animation: opening-formula 560ms 80ms ease both;
+}
+
+.opening-formula i {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: normal;
+}
+
+.poing-opening > strong {
+  margin-top: 10px;
+  font-family: var(--serif);
+  font-size: clamp(68px, 9vw, 132px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0;
+  animation: opening-wordmark 720ms 140ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.poing-opening > small {
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  font-weight: 800;
+  animation: opening-formula 520ms 360ms ease both;
+}
+
+.landing-proof-band {
+  width: 100%;
+  padding: 0 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: #10243b;
+  color: white;
+}
+
+.landing-proof-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.landing-proof-inner p,
+.landing-proof-inner > a {
+  display: grid;
+  align-content: center;
+  min-height: 126px;
+  margin: 0;
+  padding: 24px 30px;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.landing-proof-inner p:first-child {
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.landing-proof-inner span,
+.landing-proof-inner small {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.landing-proof-inner strong {
+  margin: 7px 0;
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.landing-proof-inner > a {
+  min-width: 180px;
+  justify-items: center;
+  border-right: 0;
+  color: #ffd58d;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.landing-band {
+  width: 100%;
+  padding: clamp(72px, 8vw, 112px) 32px;
+  border-bottom: 1px solid rgba(17, 24, 18, 0.12);
+}
+
+.landing-band-regions {
+  background: #f4f1e9;
+}
+
+.landing-band-best {
+  background: #e7ece7;
+}
+
+.landing-band-routes {
+  background: #fffdf8;
+}
+
+.landing-v2 .regional-flow-section,
+.landing-v2 .best-pohang-section,
+.landing-v2 .destination-section {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.food-discovery-section {
+  width: 100%;
+  padding: clamp(72px, 8vw, 112px) 32px;
+  background: #10243b;
+  color: white;
+}
+
+.food-discovery-heading,
+.food-discovery-grid {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+}
+
+.food-discovery-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 34px;
+}
+
+.food-discovery-heading h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(42px, 5vw, 72px);
+  font-weight: 400;
+}
+
+.food-discovery-heading > p {
+  max-width: 520px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.food-discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 26px 18px;
+}
+
+.food-place-card {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  color: white;
+}
+
+.food-place-photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1.35 / 1;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  background: #263b50;
+}
+
+.food-place-photo img {
+  object-fit: cover;
+  transition: transform 420ms ease;
+}
+
+.food-place-card:hover .food-place-photo img {
+  transform: scale(1.035);
+}
+
+.food-place-photo em {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 6px 9px;
+  border-radius: 4px;
+  background: rgba(11, 22, 34, 0.82);
+  color: white;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.food-place-card > strong {
+  overflow: hidden;
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.food-place-card > p {
+  overflow: hidden;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.food-place-card > small {
+  color: rgba(255, 255, 255, 0.44);
+  font-size: 10px;
+}
+
+.landing-v2 .landing-time-band {
+  width: 100%;
+  max-width: none;
+  padding: clamp(72px, 8vw, 104px) max(32px, calc((100% - 1180px) / 2));
+  background: #e8e1d5;
+}
+
+.landing-v2 .poem-section {
+  width: 100%;
+  max-width: none;
+  padding: clamp(72px, 8vw, 110px) max(32px, calc((100% - 1180px) / 2));
+  background: #fffdf8;
+}
+
+@keyframes opening-formula {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes opening-wordmark {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes opening-line {
+  to { width: min(360px, 54vw); }
+}
+
+@keyframes opening-curtain {
+  0%, 68% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes landing-content-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes landing-planner-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes landing-photo-breathe {
+  from { transform: scale(1.04); }
+  to { transform: scale(1); }
+}
+
+@media (max-width: 760px) {
+  .landing-v2 .editorial-hero {
+    height: auto;
+    min-height: 860px;
+    margin: 10px;
+    border-radius: 14px;
+  }
+
+  .landing-v2 .editorial-nav {
+    margin: 10px;
+  }
+
+  .landing-v2 .editorial-hero-content {
+    position: relative;
+    inset: auto;
+    display: block;
+    padding: 118px 22px 28px;
+  }
+
+  .landing-v2 .hero-statement h1 {
+    font-size: 46px;
+  }
+
+  .landing-v2 .sun-card.hero {
+    display: none;
+  }
+
+  .hero-photo-credit {
+    top: 78px;
+    right: 18px;
+  }
+
+  .landing-journey-planner {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0 16px 16px;
+  }
+
+  .landing-planner-title,
+  .landing-journey-planner > button {
+    grid-column: 1 / -1;
+  }
+
+  .landing-planner-title,
+  .landing-journey-planner label,
+  .landing-journey-planner > button {
+    min-height: 70px;
+    border-bottom: 1px solid rgba(17, 24, 18, 0.12);
+  }
+
+  .landing-proof-band,
+  .landing-band,
+  .food-discovery-section {
+    padding-inline: 18px;
+  }
+
+  .landing-proof-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .landing-proof-inner p,
+  .landing-proof-inner > a {
+    min-height: 110px;
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .food-discovery-heading {
+    display: grid;
+  }
+
+  .food-discovery-grid {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .food-place-card {
+    min-width: 252px;
+    scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poing-opening {
+    display: none;
+  }
+
+  .landing-hero-photo,
+  .landing-v2 .editorial-hero-content,
+  .landing-journey-planner {
+    animation: none;
+  }
+}

@@ -35,6 +35,21 @@ const FEATURED_PLACE_KEYWORDS = [
   '구룡포과메기문화관',
 ];
 
+const FOOD_PRIORITY_TITLES = [
+  '환여횟집',
+  '포항특미물회',
+  '장기식당',
+  '고바우식당',
+  '마라도회식당',
+  'THE 신촌s 덮죽',
+  '시민제과',
+  '까멜리아인구룡포',
+  '헤이안',
+  '카페포토피아',
+  '카페파도',
+  '케이프라운지',
+];
+
 export type KtoPlace = {
   id: string;
   contentId: string;
@@ -199,6 +214,7 @@ const fetchOpenApiItems = async <T>(
 };
 
 const safeText = (value?: string) => value?.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() ?? '';
+const secureImageUrl = (value?: string) => value?.replace(/^http:\/\//i, 'https://') ?? '';
 
 const fallbackPlaces = (): KtoPlace[] =>
   officialPohangPlaces.map((place) => ({
@@ -225,7 +241,8 @@ const mapToKtoPlace = (
   const images = imageItems
     .map((image) => image.originimgurl ?? image.smallimageurl)
     .filter((image): image is string => Boolean(image));
-  const firstImage = commonItem?.firstimage ?? areaItem.firstimage ?? areaItem.firstimage2 ?? images[0] ?? '';
+  const secureImages = images.map(secureImageUrl);
+  const firstImage = secureImageUrl(commonItem?.firstimage ?? areaItem.firstimage ?? areaItem.firstimage2 ?? secureImages[0]);
   const contentId = areaItem.contentid ?? commonItem?.contentid ?? crypto.randomUUID();
 
   return {
@@ -241,7 +258,7 @@ const mapToKtoPlace = (
     mapX: commonItem?.mapx ?? areaItem.mapx,
     mapY: commonItem?.mapy ?? areaItem.mapy,
     imageUrl: firstImage,
-    images: Array.from(new Set([firstImage, ...images].filter(Boolean))),
+    images: Array.from(new Set([firstImage, ...secureImages].filter(Boolean))),
     intro: Object.fromEntries(
       Object.entries(introItem ?? {})
         .filter(([, value]) => Boolean(value))
@@ -271,13 +288,23 @@ export const getPohangTourApiData = async (): Promise<KtoDataResult> => {
   }
 
   try {
-    const areaItems = await fetchOpenApiItems<AreaBasedItem>(KTO_KOR_SERVICE_BASE, 'areaBasedList2', key, {
-      pageNo: 1,
-      numOfRows: 200,
-      arrange: 'O',
-      areaCode: POHANG_AREA_CODE,
-      sigunguCode: POHANG_SIGUNGU_CODE,
-    });
+    const [areaItems, foodItems] = await Promise.all([
+      fetchOpenApiItems<AreaBasedItem>(KTO_KOR_SERVICE_BASE, 'areaBasedList2', key, {
+        pageNo: 1,
+        numOfRows: 200,
+        arrange: 'O',
+        areaCode: POHANG_AREA_CODE,
+        sigunguCode: POHANG_SIGUNGU_CODE,
+      }),
+      fetchOpenApiItems<AreaBasedItem>(KTO_KOR_SERVICE_BASE, 'areaBasedList2', key, {
+        pageNo: 1,
+        numOfRows: 100,
+        arrange: 'O',
+        areaCode: POHANG_AREA_CODE,
+        sigunguCode: POHANG_SIGUNGU_CODE,
+        contentTypeId: '39',
+      }),
+    ]);
     const featuredPlaces = await Promise.all(FEATURED_PLACE_KEYWORDS.map(async (keyword) => {
       const matches = await fetchOpenApiItems<AreaBasedItem>(KTO_KOR_SERVICE_BASE, 'searchKeyword2', key, {
         pageNo: 1,
@@ -289,15 +316,28 @@ export const getPohangTourApiData = async (): Promise<KtoDataResult> => {
       return match ? { ...match, __sourceApi: 'searchKeyword2' } : undefined;
     }));
     const categoryLabels = new Map(TOUR_CONTENT_TYPES.map((item) => [item.contentTypeId, item.label]));
+    const priorityIndex = new Map(FOOD_PRIORITY_TITLES.map((title, index) => [title, index]));
+    const selectedFoodItems = [...foodItems]
+      .filter((item) => item.contentid && item.firstimage)
+      .sort((a, b) => {
+        const aPriority = priorityIndex.get(a.title ?? '') ?? FOOD_PRIORITY_TITLES.length;
+        const bPriority = priorityIndex.get(b.title ?? '') ?? FOOD_PRIORITY_TITLES.length;
+        return aPriority - bPriority || (a.title ?? '').localeCompare(b.title ?? '', 'ko');
+      })
+      .slice(0, 12);
     const seen = new Set<string>();
-    const basePlaces = [...featuredPlaces.flatMap((place) => place ? [place] : []), ...areaItems]
+    const basePlaces = [
+      ...featuredPlaces.flatMap((place) => place ? [place] : []),
+      ...selectedFoodItems,
+      ...areaItems,
+    ]
       .filter((item) => categoryLabels.has(item.contenttypeid ?? ''))
       .filter((item) => {
         if (!item.contentid || seen.has(item.contentid)) return false;
         seen.add(item.contentid);
         return true;
       })
-      .slice(0, 16)
+      .slice(0, 26)
       .map((item) => ({ ...item, __categoryLabel: categoryLabels.get(item.contenttypeid ?? '') ?? '관광지' }));
 
     const enriched = await Promise.all(
@@ -321,11 +361,13 @@ export const getPohangTourApiData = async (): Promise<KtoDataResult> => {
             numOfRows: 1,
             pageNo: 1,
           }).catch(() => []),
-          fetchOpenApiItems<DetailImageItem>(KTO_KOR_SERVICE_BASE, 'detailImage2', key, {
-            contentId,
-            numOfRows: 8,
-            pageNo: 1,
-          }).catch(() => []),
+          contentTypeId === '39'
+            ? Promise.resolve([] as DetailImageItem[])
+            : fetchOpenApiItems<DetailImageItem>(KTO_KOR_SERVICE_BASE, 'detailImage2', key, {
+              contentId,
+              numOfRows: 8,
+              pageNo: 1,
+            }).catch(() => []),
         ]);
 
         return mapToKtoPlace(place, common[0], intro[0], images, place.__categoryLabel);
@@ -398,7 +440,7 @@ export const getPohangTourPhotos = async (): Promise<KtoPhoto[]> => {
       id: item.galContentId ?? item.galWebImageUrl ?? crypto.randomUUID(),
       title: item.galTitle ?? '포항 관광사진',
       location: item.galPhotographyLocation,
-      imageUrl: item.galWebImageUrl ?? '',
+      imageUrl: secureImageUrl(item.galWebImageUrl),
       sourceLabel: '한국관광공사 포토코리아',
       photographer: item.galPhotographer,
       license: '공공누리 1유형',
